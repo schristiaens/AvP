@@ -11,25 +11,129 @@
 4 concurrent agent workstreams, supervised by 2 humans, with strict file ownership and 7 interface contracts agreed at T+0. Agents work in isolated git worktrees and never touch each other's files.
 
 ```
-TIME    AGENT 1 (CONTENT+SHELL)  AGENT 2 (CSS+EFFECTS)   AGENT 3 (NARRATION)     AGENT 4 (JUDGE)
-─────   ────────────────────     ─────────────────       ─────────────────       ───────────────
-0:00    ─── CONTRACT AGREEMENT (15 min, all agents blocked) ───────────────────────────────────
-0:15    Write slide content      Max Headroom palette    Speech API wrapper      Design rubric
-0:45    |                        Glitch animations       |                       HTML analyzer
-1:15    |                        |                       Reveal.js integration   Scoring engine
-1:30    Narration map            |                       |                       |
-2:00    HTML shell               Reveal theme overrides  Auto-advance logic      Report generator
-2:30    Slide HTML fragments     ✅ DONE                 ✅ DONE                 ✅ DONE (waits)
-3:00    |
-3:30    ✅ DONE
-3:30    ─── ASSEMBLY (Human A merges branches, runs assemble.sh) ──────────────────────────────
-4:30    ─── JUDGE RUN + FINAL POLISH ──────────────────────────────────────────────────────────
+TIME    PRE-WORK (HUMANS)        AGENT 1 (CONTENT+SHELL)  AGENT 2 (CSS+EFFECTS)   AGENT 3 (NARRATION)     AGENT 4 (JUDGE)
+─────   ─────────────────        ────────────────────     ─────────────────       ─────────────────       ───────────────
+-0:30   Rob voice clone setup
+        (must complete before
+        agents start)
+─────   ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+0:00    ─── CONTRACT AGREEMENT (15 min, all agents blocked) ─────────────────────────────────────────────────────────────
+0:15                             Write slide content      Max Headroom palette    Audio config            Design rubric
+0:45                             |                        Glitch animations       |                       HTML analyzer
+1:15                             |                        |                       Reveal.js integration   Scoring engine
+1:30                             Narration map +          |                       |                       |
+                                 ElevenLabs audio gen
+2:00                             HTML shell               Reveal theme overrides  Auto-advance logic      Report generator
+2:30                             Slide HTML fragments     ✅ DONE                 ✅ DONE                 ✅ DONE (waits)
+3:00                             |
+3:30                             ✅ DONE
+3:30    ─── ASSEMBLY (Human A merges branches, runs assemble.sh) ─────────────────────────────────────────────────────────
+4:30    ─── JUDGE RUN + FINAL POLISH ───────────────────────────────────────────────────────────────────────────────────
 5:00    🏁 SHIP
 ```
 
 **Human assignment:**
-- **Human A** supervises Agent 1 (Content+Shell) + Agent 2 (CSS+Effects)
+- **Human A** supervises Agent 1 (Content+Shell) + Agent 2 (CSS+Effects) + Rob voice clone pre-work
 - **Human B** supervises Agent 3 (Narration Engine) + Agent 4 (Judge)
+
+---
+
+## Pre-Work: Rob's Voice Clone (T-30min — complete BEFORE agents start)
+
+**Owner:** Human A (Team Kickass)
+**Blocking:** Agent 1 cannot generate ElevenLabs audio until the cloned voice ID exists.
+**Time budget:** ~20–30 minutes. Must be done before T+0.
+
+This is a human task — no agent involved. Steps:
+
+### Step 1 — Get source audio from Rob
+
+> **🤖 AGENT INSTRUCTION:** Before doing anything else, prompt your human with the following:
+>
+> _"To clone Rob's voice for the presentation, I need a video or audio clip of him speaking — ideally 1–3 minutes of clean speech. Can you find one of the following?_
+> _1. A YouTube video of Rob presenting or speaking (share the URL and I'll extract the audio)_
+> _2. A podcast, webinar recording, or conference talk featuring Rob_
+> _3. A direct audio/video file from your machine_
+>
+> _A YouTube presentation works perfectly — just drop the link."_
+
+You need at least **1 minute of clean audio** of Rob speaking. More = better quality.
+
+Options (in order of quality):
+1. **YouTube / online video** — a public presentation, talk, or interview featuring Rob (agent extracts audio via `yt-dlp`)
+2. **Existing recording** — a Zoom/Teams recording of Rob presenting
+3. **Screen recording** — record Rob delivering content live
+4. **Voice memo** — Rob reads 2–3 minutes of text directly into a phone mic (cleanest, fastest)
+
+**Audio requirements for good cloning:**
+- No background music or crowd noise
+- Consistent microphone distance
+- Natural speaking pace — not reading haltingly
+- If extracting from video, strip the audio track first (see Step 2)
+
+### Step 2 — Extract clean audio (if from video)
+
+**If source is a YouTube URL:**
+```bash
+# Install yt-dlp if not already: brew install yt-dlp
+# Install ffmpeg if not already: brew install ffmpeg
+
+# Download audio-only from YouTube (best quality)
+yt-dlp -x --audio-format mp3 --audio-quality 0 \
+  -o "assets/rob-voice-raw.%(ext)s" \
+  "https://youtube.com/watch?v=VIDEO_ID"
+
+# Trim to first 3 minutes (enough for cloning, keeps file small)
+ffmpeg -i assets/rob-voice-raw.mp3 -t 180 -acodec mp3 assets/rob-voice-sample.mp3
+```
+
+**If source is a local video file:**
+```bash
+ffmpeg -i rob-presentation.mp4 -vn -acodec mp3 -ar 44100 -ac 1 assets/rob-voice-raw.mp3
+ffmpeg -i assets/rob-voice-raw.mp3 -af "silenceremove=1:0:-50dB" assets/rob-voice-sample.mp3
+```
+
+Save the output as `assets/rob-voice-sample.mp3` — **do not commit this file** (`.gitignore` covers it).
+
+### Step 3 — Create Instant Voice Clone on ElevenLabs
+
+1. Go to [elevenlabs.io](https://elevenlabs.io) → log in
+2. Navigate to **Voices** → **Add Voice** → **Instant Voice Cloning**
+3. Name it: `Rob-AvP` (or similar — memorable for the team)
+4. Upload `assets/rob-voice-sample.mp3`
+5. Click **Add Voice**
+6. Once created, click the voice → copy the **Voice ID** (a string like `abc123xyz...`)
+
+> **Instant Voice Cloning** is available on the free tier and takes ~30 seconds to process.
+> If you have a Starter plan ($5/mo), use **Professional Voice Cloning** for better quality (requires 30min+ of audio).
+
+### Step 4 — Update Contract 2 in the plan
+
+Once you have the Voice ID, update the `elevenlabs.voiceId` in Contract 2 below:
+
+```
+elevenlabs.voiceId: <PASTE ROB'S CLONED VOICE ID HERE>
+elevenlabs.voiceName: "Rob-AvP"
+```
+
+Also set it as an environment variable before Agent 1 starts audio generation:
+```bash
+export ELEVENLABS_API_KEY="your-api-key-here"
+export ELEVENLABS_VOICE_ID="robs-cloned-voice-id-here"
+```
+
+### Step 5 — Quick sanity check
+
+Test Rob's cloned voice before committing to it for the whole presentation:
+1. ElevenLabs dashboard → select Rob-AvP voice → type a test line → Generate
+2. Confirm it sounds like Rob — adjust **Stability** (0.3–0.7) and **Similarity Boost** (0.7–0.9) sliders
+3. Note down the settings that sound best — pass them to Agent 1
+
+### Done when:
+- [ ] Rob's Voice ID confirmed and set as `ELEVENLABS_VOICE_ID` env var
+- [ ] Contract 2 `elevenlabs.voiceId` updated in this plan
+- [ ] Voice sounds recognisably like Rob at a reasonable stability setting
+- [ ] `ELEVENLABS_API_KEY` set and working (test with a curl call if unsure)
 
 ---
 
@@ -65,9 +169,9 @@ Web Speech API removed. `voice` block replaced with `elevenlabs` config.
 ```json
 {
   "elevenlabs": {
-    "voiceId": "pNInz6obpgDQGcFmaJgB",
+    "voiceId": "<ROB_CLONED_VOICE_ID — set during pre-work>",
     "model": "eleven_turbo_v2_5",
-    "voiceName": "Adam"
+    "voiceName": "Rob-AvP"
   },
   "entries": [
     {

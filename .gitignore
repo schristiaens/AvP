@@ -1,1 +1,10 @@
 .claude/settings.local.json
+
+# ElevenLabs voice cloning source audio — never commit personal voice samples
+assets/rob-voice*.mp3
+assets/rob-voice*.wav
+assets/rob-voice*.m4a
+
+# API keys / env
+.env
+.env.local
