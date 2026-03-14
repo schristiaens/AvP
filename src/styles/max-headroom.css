@@ -1,0 +1,334 @@
+/* ==========================================================================
+   max-headroom.css — Floating Character Widget + CRT Frame
+   Agent 2 (Team Kickass) | dev/human-a/css-effects
+   Contract 3 compliant — classes: .max-headroom, .max-headroom__avatar, .max-headroom__frame
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Widget container — floats bottom-right, overlays all slides
+   -------------------------------------------------------------------------- */
+.max-headroom {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: var(--mh-size, 220px);
+  z-index: var(--mh-z, 100);
+
+  /* Stack context for overlays */
+  isolation: isolate;
+
+  /* Entrance animation — slides up from bottom on load */
+  animation: mh-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mh-enter {
+  from {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CRT TV Frame (.max-headroom__frame)
+   Wraps the avatar — renders the retro television surround
+   -------------------------------------------------------------------------- */
+.max-headroom__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 12px 12px 6px 6px;
+
+  /* Multi-layer frame — outer bezel, inner bevel, glow */
+  background: #1a1a2e;
+  border: var(--mh-border, 3px) solid var(--color-accent, #00e5ff);
+  box-shadow:
+    0 0 0 1px #0a0a1a,                           /* inner gap */
+    0 0 0 4px #222244,                            /* bezel body */
+    0 0 0 5px rgba(0, 229, 255, 0.3),             /* accent rim */
+    0 0 20px rgba(0, 229, 255, 0.4),              /* outer glow */
+    0 0 60px rgba(0, 229, 255, 0.15),             /* ambient glow */
+    inset 0 0 30px rgba(0, 0, 0, 0.8);            /* inner shadow */
+
+  overflow: hidden;
+
+  /* Transition glow intensity on speaking state */
+  transition: box-shadow 0.2s ease;
+}
+
+/* Screen curve effect — pseudo-element convex lens simulation */
+.max-headroom__frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 40% 30%,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 20;
+  border-radius: inherit;
+}
+
+/* Bottom stand / speaker grille */
+.max-headroom__frame::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 10px;
+  background: linear-gradient(to bottom, #1a1a2e, #0d0d1a);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  z-index: -1;
+}
+
+/* --------------------------------------------------------------------------
+   Avatar — two-layer South Park jaw technique
+   .max-headroom__avatar-wrap  — positions both image layers
+   .max-headroom__avatar--top  — upper face (static)
+   .max-headroom__avatar--jaw  — lower jaw (animates on .is-speaking)
+
+   Validated split: 39% from bottom = mouth line
+   Validated drop:  9%  translateY = jaw open distance
+   Validated speed: 0.20s per flap cycle
+   -------------------------------------------------------------------------- */
+.max-headroom__avatar-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.max-headroom__avatar {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(1.2) contrast(1.1) hue-rotate(5deg);
+}
+
+/* Top half — forehead, eyes, nose. Never moves. */
+.max-headroom__avatar--top {
+  clip-path: inset(0 0 39% 0);
+  z-index: 2;
+}
+
+/* Bottom jaw — chin and below. Flaps down when speaking. */
+.max-headroom__avatar--jaw {
+  clip-path: inset(61% 0 0 0);  /* 100% - 39% = 61% from top */
+  z-index: 1;
+  transform-origin: center top;
+  /* Visible seam between halves sells the separation */
+  border-top: 1px solid rgba(0, 0, 0, 0.6);
+
+  /* CSS custom properties for runtime tuning */
+  --jaw-drop:  9%;
+  --jaw-speed: 0.20s;
+}
+
+/* --------------------------------------------------------------------------
+   Scanlines inside the frame (Contract 3: .scanline-overlay)
+   Scoped to .max-headroom via child selector
+   -------------------------------------------------------------------------- */
+.max-headroom .scanline-overlay {
+  border-radius: inherit;
+  z-index: 15;
+  /* Denser scanlines on a small widget */
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.22) 2px,
+    rgba(0, 0, 0, 0.22) 3px
+  );
+}
+
+.max-headroom .crt-overlay {
+  border-radius: inherit;
+  z-index: 16;
+  /* Stronger vignette on the widget for depth */
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.max-headroom .noise-overlay {
+  border-radius: inherit;
+  z-index: 14;
+  inset: -20%;
+  width: 140%;
+  height: 140%;
+}
+
+/* --------------------------------------------------------------------------
+   Channel ID badge — "MAX" label at top of frame
+   -------------------------------------------------------------------------- */
+.max-headroom__label {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  z-index: 25;
+  font-family: var(--font-mono, "Courier New", monospace);
+  font-size: 0.55rem;
+  font-weight: bold;
+  color: var(--color-accent, #00e5ff);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Signal strength dots — bottom right of frame */
+.max-headroom__signal {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 25;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.max-headroom__signal-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent, #00e5ff);
+  opacity: 0.5;
+  animation: signal-pulse 1.4s ease-in-out infinite;
+}
+
+.max-headroom__signal-dot:nth-child(2) { animation-delay: 0.2s; }
+.max-headroom__signal-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes signal-pulse {
+  0%, 100% { opacity: 0.25; transform: scale(0.9); }
+  50%       { opacity: 0.9;  transform: scale(1.1); }
+}
+
+/* --------------------------------------------------------------------------
+   Subtitle overlay (fallback when Web Speech API unavailable)
+   Shows current narration text as captions below the widget
+   -------------------------------------------------------------------------- */
+.max-headroom__subtitle {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--color-accent, #00e5ff);
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--font-mono, "Courier New", monospace);
+  font-size: 0.65rem;
+  color: var(--color-accent, #00e5ff);
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 30;
+}
+
+.max-headroom__subtitle.is-visible {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   .is-speaking state overrides (Contract 3)
+   Intensified frame glow + faster signal pulse
+   -------------------------------------------------------------------------- */
+.max-headroom.is-speaking .max-headroom__frame {
+  box-shadow:
+    0 0 0 1px #0a0a1a,
+    0 0 0 4px #222244,
+    0 0 0 5px rgba(0, 229, 255, 0.6),              /* brighter rim */
+    0 0 30px rgba(0, 229, 255, 0.7),               /* stronger outer glow */
+    0 0 80px rgba(0, 229, 255, 0.25),              /* wider ambient */
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.max-headroom.is-speaking .max-headroom__signal-dot {
+  animation-duration: 0.5s;
+  opacity: 0.95;
+}
+
+.max-headroom.is-speaking .max-headroom__avatar--jaw {
+  animation: jaw-flap var(--jaw-speed, 0.20s) linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   .is-glitching state overrides (Contract 3)
+   Red/purple accent swap on the frame during slide transition
+   -------------------------------------------------------------------------- */
+.max-headroom.is-glitching .max-headroom__frame {
+  border-color: var(--color-accent-3, #ff2d78);
+  box-shadow:
+    0 0 0 1px #0a0a1a,
+    0 0 0 4px #220011,
+    0 0 0 5px rgba(255, 45, 120, 0.5),
+    0 0 25px rgba(255, 45, 120, 0.5),
+    0 0 60px rgba(123, 47, 255, 0.2),
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+  transition: box-shadow 0s; /* instant on glitch trigger */
+}
+
+/* --------------------------------------------------------------------------
+   Responsive — shrink on smaller viewports
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .max-headroom {
+    --mh-size: 150px;
+    bottom: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .max-headroom__subtitle {
+    width: 200px;
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .max-headroom {
+    --mh-size: 110px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .max-headroom {
+    animation: none;
+  }
+
+  .max-headroom__signal-dot {
+    animation: none;
+    opacity: 0.6;
+  }
+
+  .max-headroom.is-speaking .max-headroom__frame,
+  .max-headroom.is-glitching .max-headroom__frame {
+    box-shadow:
+      0 0 0 1px #0a0a1a,
+      0 0 0 4px #222244,
+      0 0 8px rgba(0, 229, 255, 0.3),
+      inset 0 0 30px rgba(0, 0, 0, 0.8);
+    transition: none;
+  }
+}
