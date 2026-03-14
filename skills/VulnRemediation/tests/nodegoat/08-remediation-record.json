@@ -1,0 +1,108 @@
+{
+  "finding": {
+    "finding_id": "npm-audit-1096879",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "babel-traverse",
+    "purl": "pkg:npm/babel-traverse",
+    "current_version": "*",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/babel-traverse"
+    ],
+    "severity": "critical",
+    "cvss": 9.4,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-67hx-6x53-jw92"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-67hx-6x53-jw92"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  "strategy": {
+    "finding": {
+      "finding_id": "npm-audit-1096879",
+      "source_system": "npm-audit",
+      "repository": "OWASP/NodeGoat",
+      "branch": "master",
+      "manifest_path": "package.json",
+      "ecosystem": "npm",
+      "package_name": "babel-traverse",
+      "purl": "pkg:npm/babel-traverse",
+      "current_version": "*",
+      "candidate_fixed_versions": [],
+      "dependency_type": "transitive",
+      "dependency_path": [
+        "node_modules/nyc/node_modules/babel-traverse"
+      ],
+      "severity": "critical",
+      "cvss": 9.4,
+      "epss": null,
+      "exploit_maturity": null,
+      "reachable": null,
+      "runtime_exposure": null,
+      "advisory_ids": [
+        "GHSA-67hx-6x53-jw92"
+      ],
+      "scanner_evidence_urls": [
+        "https://github.com/advisories/GHSA-67hx-6x53-jw92"
+      ],
+      "introduced_via": null,
+      "fix_types_available": []
+    },
+    "recommended_strategy": "update",
+    "target_version": "7.26.0",
+    "confidence": 0.85,
+    "rationale": "Patch update resolves GHSA-67hx-6x53-jw92 with no breaking changes detected. OSV/GHSA check confirms target version is clean.",
+    "breaking_change_signals": {
+      "semver_delta": "major",
+      "changelog_url": "https://www.npmjs.com/package/babel-traverse",
+      "breaking_changes": [],
+      "deprecations": [
+        "babel-traverse is deprecated in favor of @babel/traverse"
+      ],
+      "api_changes": []
+    },
+    "candidate_checks": [
+      {
+        "version": "7.26.0",
+        "safe": true,
+        "advisories": [],
+        "severity_introduced": null
+      }
+    ],
+    "alternatives_considered": [
+      "Stay on 6.x line \u2014 no fix available for CVE"
+    ]
+  },
+  "validation": {
+    "success": true,
+    "test_passed": true,
+    "build_passed": true,
+    "rescan_clean": true,
+    "confidence": 0.85,
+    "test_output_summary": "42 passing, 0 failing",
+    "scan_output_summary": "GHSA-67hx-6x53-jw92 no longer present in scan results",
+    "lockfile_diff_summary": "3 packages updated, 0 removed, 1 added",
+    "execution_mode": "direct"
+  },
+  "pr_url": "https://github.com/OWASP/NodeGoat/pull/999",
+  "status": "pr_opened",
+  "started_at": "2026-03-14T15:00:00",
+  "completed_at": "2026-03-14T15:30:00",
+  "decision_rationale": "Major version bump required but package is deprecated in favor of @babel/traverse. Update resolves critical prototype pollution vulnerability.",
+  "downstream_consumers": [
+    "app.js",
+    "config/express.js"
+  ]
+}

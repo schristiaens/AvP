@@ -1,0 +1,3326 @@
+[
+  {
+    "finding_id": "npm-audit-1096879",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "babel-traverse",
+    "purl": "pkg:npm/babel-traverse",
+    "current_version": "*",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/babel-traverse"
+    ],
+    "severity": "critical",
+    "cvss": 9.4,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-67hx-6x53-jw92"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-67hx-6x53-jw92"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1102316",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "bson",
+    "purl": "pkg:npm/bson",
+    "current_version": "1.1.3",
+    "candidate_fixed_versions": [
+      "7.1.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/bson"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-v8w9-2789-6hhr"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-v8w9-2789-6hhr"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1109540",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "form-data",
+    "purl": "pkg:npm/form-data",
+    "current_version": "2.5.3",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/cypress/node_modules/form-data",
+      "node_modules/form-data",
+      "node_modules/grunt-retire/node_modules/form-data",
+      "node_modules/npm/node_modules/request/node_modules/form-data",
+      "node_modules/zaproxy/node_modules/form-data"
+    ],
+    "severity": "critical",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-fjxv-7rqg-78g4"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-fjxv-7rqg-78g4"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1091853",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "fsevents",
+    "purl": "pkg:npm/fsevents",
+    "current_version": "1.2.12",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents"
+    ],
+    "severity": "critical",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-xv2f-5jw4-v95m"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-xv2f-5jw4-v95m"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1094997",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "fsevents",
+    "purl": "pkg:npm/fsevents",
+    "current_version": "1.2.12",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-8r6j-v8pm-fqw3"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-8r6j-v8pm-fqw3"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1093420",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "getobject",
+    "purl": "pkg:npm/getobject",
+    "current_version": "0.1.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/getobject"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-957j-59c2-j692"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-957j-59c2-j692"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1088328",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "growl",
+    "purl": "pkg:npm/growl",
+    "current_version": "1.10.0",
+    "candidate_fixed_versions": [
+      "11.7.5"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/growl"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-qh2h-chj9-jffq"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-qh2h-chj9-jffq"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1095063",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-f2jv-r9rf-7988"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-f2jv-r9rf-7988"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1102332",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-w457-6q6x-cgp9"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-w457-6q6x-cgp9"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1102335",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-765h-qjxv-5f44"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-765h-qjxv-5f44"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1101855",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "json-schema",
+    "purl": "pkg:npm/json-schema",
+    "current_version": "0.4.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/json-schema",
+      "node_modules/npm/node_modules/request/node_modules/http-signature/node_modules/jsprim/node_modules/json-schema"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-896r-f27r-55mw"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-896r-f27r-55mw"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1106918",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "lodash",
+    "purl": "pkg:npm/lodash",
+    "current_version": "4.17.21",
+    "candidate_fixed_versions": [
+      "2.0.0-rc.7"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-contrib-jshint/node_modules/lodash",
+      "node_modules/grunt-env/node_modules/lodash",
+      "node_modules/jshint/node_modules/lodash",
+      "node_modules/lodash",
+      "node_modules/nyc/node_modules/lodash",
+      "node_modules/zaproxy/node_modules/lodash"
+    ],
+    "severity": "critical",
+    "cvss": 9.1,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-jf85-cpcp-j695"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-jf85-cpcp-j695"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1097677",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "minimist",
+    "purl": "pkg:npm/minimist",
+    "current_version": "0.2.3 || 1.0.0 - 1.2.5",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/coveralls/node_modules/minimist",
+      "node_modules/cypress/node_modules/minimist",
+      "node_modules/fsevents/node_modules/minimist",
+      "node_modules/fsevents/node_modules/rc/node_modules/minimist",
+      "node_modules/meow/node_modules/minimist",
+      "node_modules/minimist",
+      "node_modules/mkdirp/node_modules/minimist",
+      "node_modules/npm/node_modules/mkdirp/node_modules/minimist",
+      "node_modules/nyc/node_modules/detect-indent/node_modules/minimist",
+      "node_modules/nyc/node_modules/minimist",
+      "node_modules/prettyjson/node_modules/minimist",
+      "node_modules/rc/node_modules/minimist"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-xvch-5gv4-984h"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-xvch-5gv4-984h"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1097678",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "minimist",
+    "purl": "pkg:npm/minimist",
+    "current_version": "0.2.3 || 1.0.0 - 1.2.5",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/coveralls/node_modules/minimist",
+      "node_modules/cypress/node_modules/minimist",
+      "node_modules/fsevents/node_modules/minimist",
+      "node_modules/fsevents/node_modules/rc/node_modules/minimist",
+      "node_modules/meow/node_modules/minimist",
+      "node_modules/minimist",
+      "node_modules/mkdirp/node_modules/minimist",
+      "node_modules/npm/node_modules/mkdirp/node_modules/minimist",
+      "node_modules/nyc/node_modules/detect-indent/node_modules/minimist",
+      "node_modules/nyc/node_modules/minimist",
+      "node_modules/prettyjson/node_modules/minimist",
+      "node_modules/rc/node_modules/minimist"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-xvch-5gv4-984h"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-xvch-5gv4-984h"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1095047",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "mixin-deep",
+    "purl": "pkg:npm/mixin-deep",
+    "current_version": "1.3.2",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/mixin-deep"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-fhjf-83wg-r2j9"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-fhjf-83wg-r2j9"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095129",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "set-value",
+    "purl": "pkg:npm/set-value",
+    "current_version": "2.0.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/set-value",
+      "node_modules/union-value/node_modules/set-value"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-4g88-fppr-53pp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-4g88-fppr-53pp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1109570",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "underscore",
+    "purl": "pkg:npm/underscore",
+    "current_version": "1.13.7",
+    "candidate_fixed_versions": [
+      "0.1.0"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/retire/node_modules/underscore",
+      "node_modules/underscore"
+    ],
+    "severity": "critical",
+    "cvss": 9.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-cf4h-3jhx-xvhq"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-cf4h-3jhx-xvhq"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1094090",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "ansi-regex",
+    "purl": "pkg:npm/ansi-regex",
+    "current_version": "3.0.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/ansi-align/node_modules/ansi-regex",
+      "node_modules/boxen/node_modules/ansi-regex",
+      "node_modules/widest-line/node_modules/ansi-regex"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-93q8-gq69-wqmw"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-93q8-gq69-wqmw"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1097691",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "async",
+    "purl": "pkg:npm/async",
+    "current_version": "2.0.0 - 2.6.3",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/async",
+      "node_modules/grunt-retire/node_modules/form-data/node_modules/async"
+    ],
+    "severity": "high",
+    "cvss": 7.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-fwr7-v2mv-hh25"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-fwr7-v2mv-hh25"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1099520",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "body-parser",
+    "purl": "pkg:npm/body-parser",
+    "current_version": "1.20.2",
+    "candidate_fixed_versions": [],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/body-parser"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-qwcr-r2fm-qrc7"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-qwcr-r2fm-qrc7"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1091680",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "brace-expansion",
+    "purl": "pkg:npm/brace-expansion",
+    "current_version": "1.1.11",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/brace-expansion",
+      "node_modules/fsevents/node_modules/brace-expansion",
+      "node_modules/npm/node_modules/fstream-npm/node_modules/fstream-ignore/node_modules/minimatch/node_modules/brace-expansion",
+      "node_modules/npm/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion",
+      "node_modules/npm/node_modules/init-package-json/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion",
+      "node_modules/npm/node_modules/node-gyp/node_modules/minimatch/node_modules/brace-expansion",
+      "node_modules/npm/node_modules/read-package-json/node_modules/glob/node_modules/minimatch/node_modules/brace-expansion",
+      "node_modules/nyc/node_modules/brace-expansion"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-832h-xg76-4gv6"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-832h-xg76-4gv6"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1098094",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "braces",
+    "purl": "pkg:npm/braces",
+    "current_version": "3.0.3",
+    "candidate_fixed_versions": [
+      "3.1.14"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/braces",
+      "node_modules/liftoff/node_modules/braces",
+      "node_modules/nyc/node_modules/braces"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-grv7-fg5c-xmjg"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-grv7-fg5c-xmjg"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1104663",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "cross-spawn",
+    "purl": "pkg:npm/cross-spawn",
+    "current_version": "6.0.6 || 7.0.0 7.0.5",
+    "candidate_fixed_versions": [
+      "3.1.14"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/cross-env/node_modules/cross-spawn",
+      "node_modules/cross-spawn",
+      "node_modules/cypress/node_modules/cross-spawn",
+      "node_modules/execa/node_modules/cross-spawn",
+      "node_modules/nyc/node_modules/cross-spawn"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-3xgq-45jj-v275"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-3xgq-45jj-v275"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1104664",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "cross-spawn",
+    "purl": "pkg:npm/cross-spawn",
+    "current_version": "6.0.6 || 7.0.0 7.0.5",
+    "candidate_fixed_versions": [
+      "3.1.14"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/cross-env/node_modules/cross-spawn",
+      "node_modules/cross-spawn",
+      "node_modules/cypress/node_modules/cross-spawn",
+      "node_modules/execa/node_modules/cross-spawn",
+      "node_modules/nyc/node_modules/cross-spawn"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-3xgq-45jj-v275"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-3xgq-45jj-v275"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1094457",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "debug",
+    "purl": "pkg:npm/debug",
+    "current_version": "2.6.8 || 3.2.0 - 3.2.6 || 4.0.0 - 4.3.0",
+    "candidate_fixed_versions": [
+      "11.7.5"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/@cypress/xvfb/node_modules/debug",
+      "node_modules/connect/node_modules/debug",
+      "node_modules/cypress/node_modules/debug",
+      "node_modules/fsevents/node_modules/debug",
+      "node_modules/mocha/node_modules/debug",
+      "node_modules/nodemon/node_modules/debug",
+      "node_modules/npm/node_modules/node-gyp/node_modules/path-array/node_modules/array-index/node_modules/debug",
+      "node_modules/nyc/node_modules/debug",
+      "node_modules/tiny-lr/node_modules/debug"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-9vvw-cc9w-f27h"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-9vvw-cc9w-f27h"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1094087",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "decode-uri-component",
+    "purl": "pkg:npm/decode-uri-component",
+    "current_version": "0.2.1",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/decode-uri-component"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-w573-4hg7-7wgq"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-w573-4hg7-7wgq"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1102333",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "diff",
+    "purl": "pkg:npm/diff",
+    "current_version": "3.5.0",
+    "candidate_fixed_versions": [
+      "11.7.5"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/diff"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-h6ch-v84p-w6p9"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-h6ch-v84p-w6p9"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1102328",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "dot-prop",
+    "purl": "pkg:npm/dot-prop",
+    "current_version": "4.2.1",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/dot-prop"
+    ],
+    "severity": "high",
+    "cvss": 7.3,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-ff7x-qrg7-qggm"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-ff7x-qrg7-qggm"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1102334",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "fstream",
+    "purl": "pkg:npm/fstream",
+    "current_version": "1.0.12",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/npm/node_modules/fstream"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-xf7w-r453-m56c"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-xf7w-r453-m56c"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1089836",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "grunt",
+    "purl": "pkg:npm/grunt",
+    "current_version": "*",
+    "candidate_fixed_versions": [],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/grunt"
+    ],
+    "severity": "high",
+    "cvss": 7.1,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-m5pj-vjjf-4m3h"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-m5pj-vjjf-4m3h"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1091643",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "grunt",
+    "purl": "pkg:npm/grunt",
+    "current_version": "*",
+    "candidate_fixed_versions": [],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/grunt"
+    ],
+    "severity": "high",
+    "cvss": 7.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-rm36-94g8-835r"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-rm36-94g8-835r"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1086648",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-q2c6-c6pm-g3gh"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-q2c6-c6pm-g3gh"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1086650",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-g9r4-xpmj-mj65"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-g9r4-xpmj-mj65"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095064",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "high",
+    "cvss": 8.1,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-3cqr-58rm-57f8"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-3cqr-58rm-57f8"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095067",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "high",
+    "cvss": 7.3,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-q42p-pg8m-cqh6"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-q42p-pg8m-cqh6"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095069",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-62gr-4qp9-h98f"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-62gr-4qp9-h98f"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1096404",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "handlebars",
+    "purl": "pkg:npm/handlebars",
+    "current_version": "4.7.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/handlebars"
+    ],
+    "severity": "high",
+    "cvss": 7.3,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-2cf5-4w76-r9qv"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-2cf5-4w76-r9qv"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1091678",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "hawk",
+    "purl": "pkg:npm/hawk",
+    "current_version": "9.0.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/hawk",
+      "node_modules/npm/node_modules/request/node_modules/hawk",
+      "node_modules/zaproxy/node_modules/hawk"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-jcpv-g9rr-qxrc"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-jcpv-g9rr-qxrc"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1095062",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "hawk",
+    "purl": "pkg:npm/hawk",
+    "current_version": "9.0.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/hawk",
+      "node_modules/npm/node_modules/request/node_modules/hawk",
+      "node_modules/zaproxy/node_modules/hawk"
+    ],
+    "severity": "high",
+    "cvss": 7.4,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-44pw-h2cw-w3vq"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-44pw-h2cw-w3vq"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1105092",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "hoek",
+    "purl": "pkg:npm/hoek",
+    "current_version": "*",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/hoek",
+      "node_modules/npm/node_modules/request/node_modules/hawk/node_modules/hoek",
+      "node_modules/zaproxy/node_modules/hoek"
+    ],
+    "severity": "high",
+    "cvss": 8.1,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-c429-5p7v-vgjp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-c429-5p7v-vgjp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1105121",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "hoek",
+    "purl": "pkg:npm/hoek",
+    "current_version": "*",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/hoek",
+      "node_modules/npm/node_modules/request/node_modules/hawk/node_modules/hoek",
+      "node_modules/zaproxy/node_modules/hoek"
+    ],
+    "severity": "high",
+    "cvss": 8.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-jp4x-w63m-7wgm"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-jp4x-w63m-7wgm"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1089188",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "i",
+    "purl": "pkg:npm/i",
+    "current_version": "0.3.7",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/i"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-x55w-vjjp-222r"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-x55w-vjjp-222r"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1093224",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "ini",
+    "purl": "pkg:npm/ini",
+    "current_version": "1.3.6",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/ini",
+      "node_modules/ini",
+      "node_modules/npm/node_modules/ini"
+    ],
+    "severity": "high",
+    "cvss": 7.3,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-qqgx-2p2h-9c37"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-qqgx-2p2h-9c37"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095058",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "js-yaml",
+    "purl": "pkg:npm/js-yaml",
+    "current_version": "3.14.1",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/coveralls/node_modules/js-yaml",
+      "node_modules/js-yaml"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-8j8c-7jfh-h6hx"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-8j8c-7jfh-h6hx"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095056",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "kind-of",
+    "purl": "pkg:npm/kind-of",
+    "current_version": "6.0.0 - 6.0.2",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/base/node_modules/kind-of",
+      "node_modules/define-property/node_modules/kind-of",
+      "node_modules/extglob/node_modules/kind-of",
+      "node_modules/liftoff/node_modules/kind-of",
+      "node_modules/make-iterator/node_modules/kind-of",
+      "node_modules/micromatch/node_modules/kind-of",
+      "node_modules/nanomatch/node_modules/kind-of",
+      "node_modules/snapdragon-node/node_modules/kind-of"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-6c8f-qphg-qjgp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-6c8f-qphg-qjgp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1106913",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "lodash",
+    "purl": "pkg:npm/lodash",
+    "current_version": "4.17.21",
+    "candidate_fixed_versions": [
+      "2.0.0-rc.7"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-contrib-jshint/node_modules/lodash",
+      "node_modules/grunt-env/node_modules/lodash",
+      "node_modules/jshint/node_modules/lodash",
+      "node_modules/lodash",
+      "node_modules/nyc/node_modules/lodash",
+      "node_modules/zaproxy/node_modules/lodash"
+    ],
+    "severity": "high",
+    "cvss": 7.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-35jh-r3h4-6jhm"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-35jh-r3h4-6jhm"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1106914",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "lodash",
+    "purl": "pkg:npm/lodash",
+    "current_version": "4.17.21",
+    "candidate_fixed_versions": [
+      "2.0.0-rc.7"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-contrib-jshint/node_modules/lodash",
+      "node_modules/grunt-env/node_modules/lodash",
+      "node_modules/jshint/node_modules/lodash",
+      "node_modules/lodash",
+      "node_modules/nyc/node_modules/lodash",
+      "node_modules/zaproxy/node_modules/lodash"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-4xc9-xhrj-v574"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-4xc9-xhrj-v574"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1106920",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "lodash",
+    "purl": "pkg:npm/lodash",
+    "current_version": "4.17.21",
+    "candidate_fixed_versions": [
+      "2.0.0-rc.7"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-contrib-jshint/node_modules/lodash",
+      "node_modules/grunt-env/node_modules/lodash",
+      "node_modules/jshint/node_modules/lodash",
+      "node_modules/lodash",
+      "node_modules/nyc/node_modules/lodash",
+      "node_modules/zaproxy/node_modules/lodash"
+    ],
+    "severity": "high",
+    "cvss": 7.4,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-p6mc-m468-83gw"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-p6mc-m468-83gw"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1093522",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "marked",
+    "purl": "pkg:npm/marked",
+    "current_version": "4.0.9",
+    "candidate_fixed_versions": [
+      "0.3.19"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/marked"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-x5pg-88wf-qq4p"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-x5pg-88wf-qq4p"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1095051",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "marked",
+    "purl": "pkg:npm/marked",
+    "current_version": "4.0.9",
+    "candidate_fixed_versions": [
+      "0.3.19"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/marked"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-rrrm-qjm4-v8hf"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-rrrm-qjm4-v8hf"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1095052",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "marked",
+    "purl": "pkg:npm/marked",
+    "current_version": "4.0.9",
+    "candidate_fixed_versions": [
+      "0.3.19"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/marked"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-5v2h-r2cx-5xgj"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-5v2h-r2cx-5xgj"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1093780",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "mime",
+    "purl": "pkg:npm/mime",
+    "current_version": "1.4.1",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/zaproxy/node_modules/mime"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-wrvr-8mpx-r7pp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-wrvr-8mpx-r7pp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1093710",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "minimatch",
+    "purl": "pkg:npm/minimatch",
+    "current_version": "3.1.3",
+    "candidate_fixed_versions": [
+      "0.4.4"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/minimatch",
+      "node_modules/minimatch",
+      "node_modules/mocha/node_modules/minimatch",
+      "node_modules/npm/node_modules/fstream-npm/node_modules/fstream-ignore/node_modules/minimatch",
+      "node_modules/npm/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/init-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/node-gyp/node_modules/minimatch",
+      "node_modules/npm/node_modules/read-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/nyc/node_modules/minimatch"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-hxm2-r34f-qmc5"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-hxm2-r34f-qmc5"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1096485",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "minimatch",
+    "purl": "pkg:npm/minimatch",
+    "current_version": "3.1.3",
+    "candidate_fixed_versions": [
+      "0.4.4"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/minimatch",
+      "node_modules/minimatch",
+      "node_modules/mocha/node_modules/minimatch",
+      "node_modules/npm/node_modules/fstream-npm/node_modules/fstream-ignore/node_modules/minimatch",
+      "node_modules/npm/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/init-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/node-gyp/node_modules/minimatch",
+      "node_modules/npm/node_modules/read-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/nyc/node_modules/minimatch"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-f8q6-p94x-37v3"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-f8q6-p94x-37v3"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1113459",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "minimatch",
+    "purl": "pkg:npm/minimatch",
+    "current_version": "3.1.3",
+    "candidate_fixed_versions": [
+      "0.4.4"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/minimatch",
+      "node_modules/minimatch",
+      "node_modules/mocha/node_modules/minimatch",
+      "node_modules/npm/node_modules/fstream-npm/node_modules/fstream-ignore/node_modules/minimatch",
+      "node_modules/npm/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/init-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/node-gyp/node_modules/minimatch",
+      "node_modules/npm/node_modules/read-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/nyc/node_modules/minimatch"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-3ppc-4f35-3m26"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-3ppc-4f35-3m26"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1113538",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "minimatch",
+    "purl": "pkg:npm/minimatch",
+    "current_version": "3.1.3",
+    "candidate_fixed_versions": [
+      "0.4.4"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/minimatch",
+      "node_modules/minimatch",
+      "node_modules/mocha/node_modules/minimatch",
+      "node_modules/npm/node_modules/fstream-npm/node_modules/fstream-ignore/node_modules/minimatch",
+      "node_modules/npm/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/init-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/node-gyp/node_modules/minimatch",
+      "node_modules/npm/node_modules/read-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/nyc/node_modules/minimatch"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-7r86-cg39-jmmj"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-7r86-cg39-jmmj"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1113546",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "minimatch",
+    "purl": "pkg:npm/minimatch",
+    "current_version": "3.1.3",
+    "candidate_fixed_versions": [
+      "0.4.4"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/minimatch",
+      "node_modules/minimatch",
+      "node_modules/mocha/node_modules/minimatch",
+      "node_modules/npm/node_modules/fstream-npm/node_modules/fstream-ignore/node_modules/minimatch",
+      "node_modules/npm/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/init-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/npm/node_modules/node-gyp/node_modules/minimatch",
+      "node_modules/npm/node_modules/read-package-json/node_modules/glob/node_modules/minimatch",
+      "node_modules/nyc/node_modules/minimatch"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-23c5-xmqv-rm74"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-23c5-xmqv-rm74"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1109571",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "moment",
+    "purl": "pkg:npm/moment",
+    "current_version": "2.29.3",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/moment"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-8hfj-j24r-96c4"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-8hfj-j24r-96c4"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1109572",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "moment",
+    "purl": "pkg:npm/moment",
+    "current_version": "2.29.3",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/moment"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-wc69-rhjr-hc9g"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-wc69-rhjr-hc9g"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1086754",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "mongodb",
+    "purl": "pkg:npm/mongodb",
+    "current_version": "3.1.12",
+    "candidate_fixed_versions": [
+      "7.1.0"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/mongodb"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-mh5c-679w-hh4r"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-mh5c-679w-hh4r"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1088715",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "nconf",
+    "purl": "pkg:npm/nconf",
+    "current_version": "0.11.3",
+    "candidate_fixed_versions": [
+      "4.0.3"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/broadway/node_modules/nconf",
+      "node_modules/nconf"
+    ],
+    "severity": "high",
+    "cvss": 7.3,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-6xwr-q98w-rvg7"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-6xwr-q98w-rvg7"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1088925",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "npm",
+    "purl": "pkg:npm/npm",
+    "current_version": "10.9.5 || 11.0.0-pre.0 - 11.7.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/npm"
+    ],
+    "severity": "high",
+    "cvss": 7.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-ph34-pc88-72gc"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-ph34-pc88-72gc"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1089206",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "npm",
+    "purl": "pkg:npm/npm",
+    "current_version": "10.9.5 || 11.0.0-pre.0 - 11.7.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/npm"
+    ],
+    "severity": "high",
+    "cvss": 7.7,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-4328-8hgf-7wjr"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-4328-8hgf-7wjr"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1089207",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "npm",
+    "purl": "pkg:npm/npm",
+    "current_version": "10.9.5 || 11.0.0-pre.0 - 11.7.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/npm"
+    ],
+    "severity": "high",
+    "cvss": 7.7,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-x8qc-rrcw-4r46"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-x8qc-rrcw-4r46"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1090086",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "npm",
+    "purl": "pkg:npm/npm",
+    "current_version": "10.9.5 || 11.0.0-pre.0 - 11.7.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/npm"
+    ],
+    "severity": "high",
+    "cvss": 7.7,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-m6cx-g6qm-p2cx"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-m6cx-g6qm-p2cx"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1089876",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "npm-user-validate",
+    "purl": "pkg:npm/npm-user-validate",
+    "current_version": "1.0.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/npm/node_modules/npm-user-validate"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-pw54-mh39-w3hc"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-pw54-mh39-w3hc"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1101850",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "path-to-regexp",
+    "purl": "pkg:npm/path-to-regexp",
+    "current_version": "0.1.11",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/path-to-regexp"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-9wv6-86v2-598j"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-9wv6-86v2-598j"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1105199",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "path-to-regexp",
+    "purl": "pkg:npm/path-to-regexp",
+    "current_version": "0.1.11",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/path-to-regexp"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-rhx6-c78j-4q9w"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-rhx6-c78j-4q9w"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1087525",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "qs",
+    "purl": "pkg:npm/qs",
+    "current_version": "6.14.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-retire/node_modules/qs",
+      "node_modules/npm/node_modules/request/node_modules/qs",
+      "node_modules/qs",
+      "node_modules/request/node_modules/qs",
+      "node_modules/zaproxy/node_modules/qs"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-gqgv-6jq5-jjj9"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-gqgv-6jq5-jjj9"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1087527",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "qs",
+    "purl": "pkg:npm/qs",
+    "current_version": "6.14.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-retire/node_modules/qs",
+      "node_modules/npm/node_modules/request/node_modules/qs",
+      "node_modules/qs",
+      "node_modules/request/node_modules/qs",
+      "node_modules/zaproxy/node_modules/qs"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-gqgv-6jq5-jjj9"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-gqgv-6jq5-jjj9"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1090967",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "qs",
+    "purl": "pkg:npm/qs",
+    "current_version": "6.14.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-retire/node_modules/qs",
+      "node_modules/npm/node_modules/request/node_modules/qs",
+      "node_modules/qs",
+      "node_modules/request/node_modules/qs",
+      "node_modules/zaproxy/node_modules/qs"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-f9cm-p3w6-xvr3"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-f9cm-p3w6-xvr3"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1091683",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "qs",
+    "purl": "pkg:npm/qs",
+    "current_version": "6.14.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-retire/node_modules/qs",
+      "node_modules/npm/node_modules/request/node_modules/qs",
+      "node_modules/qs",
+      "node_modules/request/node_modules/qs",
+      "node_modules/zaproxy/node_modules/qs"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-jjv7-qpx3-h62q"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-jjv7-qpx3-h62q"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1104115",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "qs",
+    "purl": "pkg:npm/qs",
+    "current_version": "6.14.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-retire/node_modules/qs",
+      "node_modules/npm/node_modules/request/node_modules/qs",
+      "node_modules/qs",
+      "node_modules/request/node_modules/qs",
+      "node_modules/zaproxy/node_modules/qs"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-hrpp-h998-j3pp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-hrpp-h998-j3pp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1104116",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "qs",
+    "purl": "pkg:npm/qs",
+    "current_version": "6.14.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-retire/node_modules/qs",
+      "node_modules/npm/node_modules/request/node_modules/qs",
+      "node_modules/qs",
+      "node_modules/request/node_modules/qs",
+      "node_modules/zaproxy/node_modules/qs"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-hrpp-h998-j3pp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-hrpp-h998-j3pp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1104118",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "qs",
+    "purl": "pkg:npm/qs",
+    "current_version": "6.14.0",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/grunt-retire/node_modules/qs",
+      "node_modules/npm/node_modules/request/node_modules/qs",
+      "node_modules/qs",
+      "node_modules/request/node_modules/qs",
+      "node_modules/zaproxy/node_modules/qs"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-hrpp-h998-j3pp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-hrpp-h998-j3pp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1112918",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "semver",
+    "purl": "pkg:npm/semver",
+    "current_version": "2.0.0-alpha - 5.7.1",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/semver",
+      "node_modules/npm/node_modules/semver",
+      "node_modules/nyc/node_modules/semver",
+      "node_modules/semver"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-c2qf-rxjj-qqgw"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-c2qf-rxjj-qqgw"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1094511",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "set-value",
+    "purl": "pkg:npm/set-value",
+    "current_version": "2.0.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/set-value",
+      "node_modules/union-value/node_modules/set-value"
+    ],
+    "severity": "high",
+    "cvss": 7.3,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-4jqc-8m5r-9rpr"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-4jqc-8m5r-9rpr"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095126",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "shelljs",
+    "purl": "pkg:npm/shelljs",
+    "current_version": "0.8.4",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/shelljs"
+    ],
+    "severity": "high",
+    "cvss": 7.1,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-4rq4-32rv-6wp6"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-4rq4-32rv-6wp6"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1089418",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "sshpk",
+    "purl": "pkg:npm/sshpk",
+    "current_version": "1.13.2",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/npm/node_modules/request/node_modules/http-signature/node_modules/sshpk"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-2m39-62fm-q8r3"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-2m39-62fm-q8r3"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1091414",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "swig",
+    "purl": "pkg:npm/swig",
+    "current_version": "*",
+    "candidate_fixed_versions": [],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/swig"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-2rq5-699j-x7p6"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-2rq5-699j-x7p6"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1089684",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-3jfq-g458-7qm9"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-3jfq-g458-7qm9"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1089685",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-3jfq-g458-7qm9"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-3jfq-g458-7qm9"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095117",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-5955-9wpr-37jh"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-5955-9wpr-37jh"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095119",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-j44m-qm6p-hp7m"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-j44m-qm6p-hp7m"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1096309",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-r628-mhmh-qjhw"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-r628-mhmh-qjhw"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1096376",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-9r2w-394v-53qc"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-9r2w-394v-53qc"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1096411",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-qq89-hq3f-393p"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-qq89-hq3f-393p"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1112329",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.8,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-r6q2-hw4h-h46w"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-r6q2-hw4h-h46w"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1112659",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-34x7-hfp2-rc4v"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-34x7-hfp2-rc4v"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1113300",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-8qq5-rm4j-mr97"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-8qq5-rm4j-mr97"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1113375",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 7.1,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-83g3-92jg-28cx"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-83g3-92jg-28cx"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1114200",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-qffp-2rhf-9h96"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-qffp-2rhf-9h96"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1114302",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tar",
+    "purl": "pkg:npm/tar",
+    "current_version": "7.5.10",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/fsevents/node_modules/tar",
+      "node_modules/npm/node_modules/tar"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-9ppj-qmqm-q256"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-9ppj-qmqm-q256"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095103",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "tough-cookie",
+    "purl": "pkg:npm/tough-cookie",
+    "current_version": "4.1.2",
+    "candidate_fixed_versions": [
+      "15.12.0"
+    ],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/cypress/node_modules/tough-cookie",
+      "node_modules/grunt-retire/node_modules/tough-cookie",
+      "node_modules/npm/node_modules/request/node_modules/tough-cookie",
+      "node_modules/tough-cookie"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-g7q5-pjjr-gqvp"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-g7q5-pjjr-gqvp"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1095100",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "trim-newlines",
+    "purl": "pkg:npm/trim-newlines",
+    "current_version": "3.0.1",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/trim-newlines"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-7p7h-4mm5-852v"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-7p7h-4mm5-852v"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1091686",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "uglify-js",
+    "purl": "pkg:npm/uglify-js",
+    "current_version": "2.6.0",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/uglify-js"
+    ],
+    "severity": "high",
+    "cvss": 7.5,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-c9f4-xj24-8jqx"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-c9f4-xj24-8jqx"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1113950",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "underscore",
+    "purl": "pkg:npm/underscore",
+    "current_version": "1.13.7",
+    "candidate_fixed_versions": [
+      "0.1.0"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [
+      "node_modules/retire/node_modules/underscore",
+      "node_modules/underscore"
+    ],
+    "severity": "high",
+    "cvss": 0.0,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-qpx9-hpmf-5gmw"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-qpx9-hpmf-5gmw"
+    ],
+    "introduced_via": null,
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "npm-audit-1087512",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "websocket-extensions",
+    "purl": "pkg:npm/websocket-extensions",
+    "current_version": "0.1.4",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/websocket-extensions"
+    ],
+    "severity": "high",
+    "cvss": 8.2,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-g78m-2chm-r7qv"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-g78m-2chm-r7qv"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  },
+  {
+    "finding_id": "npm-audit-1095087",
+    "source_system": "npm-audit",
+    "repository": "OWASP/NodeGoat",
+    "branch": "master",
+    "manifest_path": "package.json",
+    "ecosystem": "npm",
+    "package_name": "y18n",
+    "purl": "pkg:npm/y18n",
+    "current_version": "3.2.2",
+    "candidate_fixed_versions": [],
+    "dependency_type": "transitive",
+    "dependency_path": [
+      "node_modules/nyc/node_modules/y18n",
+      "node_modules/y18n"
+    ],
+    "severity": "high",
+    "cvss": 7.3,
+    "epss": null,
+    "exploit_maturity": null,
+    "reachable": null,
+    "runtime_exposure": null,
+    "advisory_ids": [
+      "GHSA-c4w7-xm78-47vh"
+    ],
+    "scanner_evidence_urls": [
+      "https://github.com/advisories/GHSA-c4w7-xm78-47vh"
+    ],
+    "introduced_via": null,
+    "fix_types_available": []
+  }
+]
