@@ -1,0 +1,114 @@
+# Decision Log: {{ record.finding.advisory_ids | join(", ") }}
+
+**Date:** {{ record.started_at.strftime("%Y-%m-%d %H:%M") }}
+**Package:** {{ record.finding.package_name }}@{{ record.finding.current_version }}
+**Repository:** {{ record.finding.repository }}
+**Branch:** {{ record.finding.branch }}
+**Manifest:** `{{ record.finding.manifest_path }}`
+**Status:** {{ record.status | upper }}
+
+---
+
+## Finding
+
+| Field | Value |
+|---|---|
+| Severity | {{ record.finding.severity | upper }} |
+| CVSS | {{ record.finding.cvss if record.finding.cvss else "N/A" }} |
+| EPSS | {{ record.finding.epss if record.finding.epss else "N/A" }} |
+| Ecosystem | {{ record.finding.ecosystem }} |
+| Dependency type | {{ record.finding.dependency_type }} |
+| Reachable | {{ record.finding.reachable if record.finding.reachable is not none else "Unknown" }} |
+| Exploit maturity | {{ record.finding.exploit_maturity if record.finding.exploit_maturity else "Unknown" }} |
+| Advisories | {{ record.finding.advisory_ids | join(", ") }} |
+
+{% if record.finding.dependency_path %}
+**Dependency path:** {{ record.finding.dependency_path | join(" → ") }}
+{% endif %}
+
+## Strategy
+
+**Recommended:** {{ record.strategy.recommended_strategy | upper }}
+**Target version:** {{ record.strategy.target_version }}
+**Confidence:** {{ "%.0f" | format(record.strategy.confidence * 100) }}%
+
+{{ record.strategy.rationale }}
+
+### Alternatives Considered
+{% for alt in record.strategy.alternatives_considered %}
+- {{ alt }}
+{% endfor %}
+
+{% if record.strategy.breaking_change_signals %}
+### Breaking Change Signals
+
+- Semver delta: {{ record.strategy.breaking_change_signals.semver_delta }}
+{% for change in record.strategy.breaking_change_signals.breaking_changes %}
+- Breaking: {{ change }}
+{% endfor %}
+{% for dep in record.strategy.breaking_change_signals.deprecations %}
+- Deprecated: {{ dep }}
+{% endfor %}
+{% endif %}
+
+### Candidate Version Safety
+{% for check in record.strategy.candidate_checks %}
+- {{ check.version }}: {{ "Safe" if check.safe else "Unsafe — " + (check.advisories | join(", ")) }}
+{% endfor %}
+
+{% if record.validation %}
+## Validation
+
+| Check | Result |
+|---|---|
+| Build | {{ "Passed" if record.validation.build_passed else "Failed" }} |
+| Tests | {{ "Passed" if record.validation.test_passed else "Failed" }} |
+| Re-scan | {{ "Clean" if record.validation.rescan_clean else "New findings" }} |
+| Mode | {{ record.validation.execution_mode }} |
+| Confidence | {{ "%.0f" | format(record.validation.confidence * 100) }}% |
+
+<details>
+<summary>Test output</summary>
+
+```
+{{ record.validation.test_output_summary }}
+```
+</details>
+
+<details>
+<summary>Scan output</summary>
+
+```
+{{ record.validation.scan_output_summary }}
+```
+</details>
+
+<details>
+<summary>Lockfile diff</summary>
+
+```
+{{ record.validation.lockfile_diff_summary }}
+```
+</details>
+{% endif %}
+
+{% if record.pr_url %}
+## PR
+
+{{ record.pr_url }}
+{% endif %}
+
+{% if record.downstream_consumers %}
+## Downstream Consumers
+{% for consumer in record.downstream_consumers %}
+- {{ consumer }}
+{% endfor %}
+{% endif %}
+
+## Decision Rationale
+
+{{ record.decision_rationale }}
+
+{% if record.completed_at %}
+**Completed:** {{ record.completed_at.strftime("%Y-%m-%d %H:%M") }}
+{% endif %}

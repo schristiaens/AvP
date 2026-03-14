@@ -1,0 +1,92 @@
+## Vulnerability Remediation
+
+### Triggering Findings
+{% for finding in findings %}
+- **{{ finding.package_name }}@{{ finding.current_version }}** — {{ finding.severity | upper }}
+  - Advisory: {{ finding.advisory_ids | join(", ") }}
+  - Type: {{ finding.dependency_type }}
+  - Path: `{{ finding.manifest_path }}`
+{% endfor %}
+
+### Chosen Strategy: {{ strategy.recommended_strategy | upper }}
+
+**Target version:** {{ strategy.target_version }}
+**Confidence:** {{ "%.0f" | format(strategy.confidence * 100) }}%
+
+{{ strategy.rationale }}
+
+### Alternatives Considered
+{% for alt in strategy.alternatives_considered %}
+- {{ alt }}
+{% endfor %}
+
+{% if strategy.breaking_change_signals %}
+### Breaking Change Analysis
+
+- **Semver delta:** {{ strategy.breaking_change_signals.semver_delta }}
+{% for change in strategy.breaking_change_signals.breaking_changes %}
+- Breaking: {{ change }}
+{% endfor %}
+{% for dep in strategy.breaking_change_signals.deprecations %}
+- Deprecated: {{ dep }}
+{% endfor %}
+{% for api in strategy.breaking_change_signals.api_changes %}
+- API change: {{ api }}
+{% endfor %}
+{% endif %}
+
+### Candidate Version Safety
+{% for check in strategy.candidate_checks %}
+- **{{ check.version }}**: {{ "Safe" if check.safe else "Unsafe — " + (check.advisories | join(", ")) }}
+{% endfor %}
+
+{% if validation %}
+### Validation Evidence
+
+| Check | Result |
+|---|---|
+| Build | {{ "Passed" if validation.build_passed else "Failed" }} |
+| Tests | {{ "Passed" if validation.test_passed else "Failed" }} |
+| Re-scan | {{ "Clean" if validation.rescan_clean else "New findings" }} |
+| Execution mode | {{ validation.execution_mode }} |
+| Confidence | {{ "%.0f" | format(validation.confidence * 100) }}% |
+
+<details>
+<summary>Test output</summary>
+
+```
+{{ validation.test_output_summary }}
+```
+</details>
+
+<details>
+<summary>Lockfile diff</summary>
+
+```
+{{ validation.lockfile_diff_summary }}
+```
+</details>
+
+<details>
+<summary>Scan output</summary>
+
+```
+{{ validation.scan_output_summary }}
+```
+</details>
+{% endif %}
+
+{% if consumers %}
+### Downstream Consumer Impact
+{% for consumer in consumers %}
+- **{{ consumer }}**
+{% endfor %}
+{% endif %}
+
+### Rollback
+
+```bash
+git revert {{ commit_sha }}
+```
+
+Or manually revert `{{ strategy.finding.package_name }}` to `{{ strategy.finding.current_version }}`.

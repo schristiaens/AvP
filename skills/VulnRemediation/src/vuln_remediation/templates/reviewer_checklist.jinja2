@@ -1,0 +1,10 @@
+### Reviewer Checklist
+
+- [ ] Chosen strategy is the lowest-risk viable option
+- [ ] Target version is not known-vulnerable in the attached evidence
+- [ ] Changelog and compatibility notes reviewed
+- [ ] Existing tests passed in the runner
+{% if has_generated_tests %}- [ ] Generated tests are relevant and non-trivial{% endif %}
+- [ ] Downstream consumer impact acknowledged
+- [ ] Rollback instructions are sufficient
+{% if is_major_update %}- [ ] Major-version change has explicit owner approval{% endif %}
