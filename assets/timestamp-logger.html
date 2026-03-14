@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rob Voice — Timestamp Logger</title>
+  <style>
+    :root {
+      --bg: #0a0a0f; --accent: #00e5ff; --accent2: #7b2fff;
+      --text: #e8e8f0; --dim: #8888aa; --mono: "Courier New", monospace;
+      --good: #00ff99; --bad: #ff2d78;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); padding: 1.5rem; }
+    h1 { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.25rem; }
+    p.sub { color: var(--dim); font-size: 0.65rem; margin-bottom: 1.25rem; }
+
+    /* Player */
+    .player-wrap { background: #111128; border: 1px solid #1e1e3a; border-radius: 4px; padding: 0.75rem 1rem; margin-bottom: 1rem; }
+    audio { width: 100%; accent-color: var(--accent); margin-bottom: 0.5rem; }
+    .time-display { font-size: 1.1rem; color: var(--accent); letter-spacing: 0.1em; }
+    .speed-row { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; }
+    .speed-row label { font-size: 0.6rem; color: var(--dim); }
+    button.spd { background: #0d0d1a; border: 1px solid #1e1e3a; color: var(--dim); font-family: var(--mono); font-size: 0.6rem; padding: 0.2rem 0.5rem; cursor: pointer; border-radius: 2px; }
+    button.spd.active { border-color: var(--accent2); color: var(--accent); }
+
+    /* Capture controls */
+    .capture { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    button.action {
+      background: #0d0d1a; border: 1px solid var(--accent2); color: var(--accent);
+      font-family: var(--mono); font-size: 0.7rem; padding: 0.35rem 0.8rem;
+      cursor: pointer; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    button.action:hover { background: #1e1e3a; }
+    button.action.red { border-color: var(--bad); color: var(--bad); }
+    button.action.green { border-color: var(--good); color: var(--good); }
+    button.action.dim { border-color: #1e1e3a; color: var(--dim); }
+
+    /* Table */
+    #log-table { width: 100%; border-collapse: collapse; font-size: 0.65rem; margin-bottom: 1rem; }
+    #log-table th { color: var(--dim); text-align: left; padding: 0.3rem 0.5rem; border-bottom: 1px solid #1e1e3a; font-weight: normal; text-transform: uppercase; letter-spacing: 0.08em; }
+    #log-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #111128; vertical-align: middle; }
+    #log-table tr.rob td { color: var(--good); }
+    #log-table tr.skip td { color: var(--dim); }
+    .badge { font-size: 0.55rem; padding: 0.1rem 0.35rem; border-radius: 2px; text-transform: uppercase; }
+    .badge-rob { background: rgba(0,255,153,0.1); color: var(--good); border: 1px solid rgba(0,255,153,0.3); }
+    .badge-skip { background: rgba(136,136,170,0.1); color: var(--dim); border: 1px solid #1e1e3a; }
+    button.del { background: none; border: none; color: #ff2d78; cursor: pointer; font-size: 0.75rem; padding: 0 0.2rem; }
+
+    /* Export */
+    #export-area { background: #111128; border: 1px solid #1e1e3a; border-radius: 4px; padding: 0.75rem; font-size: 0.65rem; white-space: pre; overflow-x: auto; color: var(--accent); display: none; margin-bottom: 1rem; }
+    #summary { font-size: 0.65rem; color: var(--dim); margin-bottom: 0.5rem; }
+    #summary span { color: var(--accent); }
+
+    .hint { font-size: 0.6rem; color: var(--dim); margin-bottom: 1rem; line-height: 1.6; }
+    kbd { background: #1e1e3a; border: 1px solid #333; border-radius: 2px; padding: 0.05rem 0.3rem; font-family: var(--mono); font-size: 0.6rem; color: var(--text); }
+  </style>
+</head>
+<body>
+
+<h1>▸ Rob Voice — Timestamp Logger</h1>
+<p class="sub">Mark Rob (American) segments. Skip the other speaker. Export ffmpeg commands when done.</p>
+
+<div class="player-wrap">
+  <audio id="audio" controls>
+    <source src="rob-source.mp3" type="audio/mpeg">
+  </audio>
+  <div class="time-display" id="timecode">00:00:00</div>
+  <div class="speed-row">
+    <label>Speed:</label>
+    <button class="spd" onclick="setSpeed(0.5)">0.5×</button>
+    <button class="spd" onclick="setSpeed(0.75)">0.75×</button>
+    <button class="spd active" onclick="setSpeed(1)">1×</button>
+    <button class="spd" onclick="setSpeed(1.25)">1.25×</button>
+    <button class="spd" onclick="setSpeed(1.5)">1.5×</button>
+  </div>
+</div>
+
+<div class="hint">
+  <kbd>R</kbd> Mark Rob start/end &nbsp;|&nbsp; <kbd>S</kbd> Mark skip (other speaker) &nbsp;|&nbsp; <kbd>Space</kbd> Play/pause &nbsp;|&nbsp; <kbd>←</kbd><kbd>→</kbd> ±5s
+</div>
+
+<div class="capture">
+  <button class="action green" onclick="markRob()">▶ Rob Start/End [R]</button>
+  <button class="action dim" onclick="markSkip()">⊘ Skip Segment [S]</button>
+  <button class="action" onclick="exportLog()">⬇ Export ffmpeg</button>
+  <button class="action" onclick="copyLog()">⎘ Copy JSON</button>
+  <button class="action red" onclick="clearAll()">✕ Clear All</button>
+</div>
+
+<div id="summary">Segments: <span id="seg-count">0</span> &nbsp;|&nbsp; Rob audio: <span id="rob-duration">0s</span></div>
+<table id="log-table">
+  <thead><tr><th>#</th><th>Type</th><th>Start</th><th>End</th><th>Duration</th><th>Note</th><th></th></tr></thead>
+  <tbody id="log-body"></tbody>
+</table>
+
+<pre id="export-area"></pre>
+
+<script>
+  const audio = document.getElementById('audio');
+  const timecode = document.getElementById('timecode');
+  const logBody = document.getElementById('log-body');
+
+  let segments = [];
+  let pendingType = null;   // 'rob' | 'skip'
+  let pendingStart = null;
+
+  // Load saved state
+  const saved = localStorage.getItem('rob-timestamps');
+  if (saved) { try { segments = JSON.parse(saved); renderTable(); } catch(e) {} }
+
+  // Timecode display
+  audio.addEventListener('timeupdate', () => {
+    timecode.textContent = fmt(audio.currentTime);
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.code === 'KeyR') { e.preventDefault(); markRob(); }
+    if (e.code === 'KeyS') { e.preventDefault(); markSkip(); }
+    if (e.code === 'Space') { e.preventDefault(); audio.paused ? audio.play() : audio.pause(); }
+    if (e.code === 'ArrowRight') { e.preventDefault(); audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); }
+    if (e.code === 'ArrowLeft') { e.preventDefault(); audio.currentTime = Math.max(0, audio.currentTime - 5); }
+  });
+
+  function markRob() { toggleMark('rob'); }
+  function markSkip() { toggleMark('skip'); }
+
+  function toggleMark(type) {
+    const t = audio.currentTime;
+    if (pendingType !== type) {
+      // Start new segment
+      pendingType = type;
+      pendingStart = t;
+      flashStatus(type === 'rob' ? '● Recording Rob...' : '● Skipping...');
+    } else {
+      // End segment
+      if (t <= pendingStart) { pendingType = null; pendingStart = null; return; }
+      segments.push({ type: pendingType, start: pendingStart, end: t, note: '' });
+      segments.sort((a,b) => a.start - b.start);
+      pendingType = null; pendingStart = null;
+      save(); renderTable();
+      flashStatus('✓ Segment saved');
+    }
+  }
+
+  function flashStatus(msg) {
+    timecode.textContent = msg;
+    setTimeout(() => timecode.textContent = fmt(audio.currentTime), 1200);
+  }
+
+  function fmt(s) {
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = Math.floor(s % 60);
+    const ms = Math.floor((s % 1) * 10);
+    return `${pad(h)}:${pad(m)}:${pad(sec)}.${ms}`;
+  }
+
+  function pad(n) { return String(n).padStart(2,'0'); }
+
+  function renderTable() {
+    logBody.innerHTML = '';
+    let robTotal = 0;
+    segments.forEach((seg, i) => {
+      const dur = seg.end - seg.start;
+      if (seg.type === 'rob') robTotal += dur;
+      const tr = document.createElement('tr');
+      tr.className = seg.type;
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td><span class="badge badge-${seg.type}">${seg.type === 'rob' ? '✓ Rob' : '⊘ Skip'}</span></td>
+        <td><a href="#" onclick="seekTo(${seg.start});return false">${fmt(seg.start)}</a></td>
+        <td><a href="#" onclick="seekTo(${seg.end});return false">${fmt(seg.end)}</a></td>
+        <td>${dur.toFixed(1)}s</td>
+        <td><input style="background:transparent;border:none;outline:none;color:var(--dim);font-family:var(--mono);font-size:0.6rem;width:160px"
+             placeholder="note..." value="${seg.note || ''}"
+             onchange="segments[${i}].note=this.value;save()"></td>
+        <td><button class="del" onclick="deleteSegment(${i})">✕</button></td>
+      `;
+      logBody.appendChild(tr);
+    });
+    document.getElementById('seg-count').textContent = segments.length;
+    document.getElementById('rob-duration').textContent = robTotal.toFixed(1) + 's';
+    updateExport();
+  }
+
+  function seekTo(t) { audio.currentTime = t; }
+
+  function deleteSegment(i) {
+    segments.splice(i, 1);
+    save(); renderTable();
+  }
+
+  function clearAll() {
+    if (!confirm('Clear all segments?')) return;
+    segments = []; pendingType = null; pendingStart = null;
+    save(); renderTable();
+    document.getElementById('export-area').style.display = 'none';
+  }
+
+  function save() {
+    localStorage.setItem('rob-timestamps', JSON.stringify(segments));
+  }
+
+  function updateExport() {
+    const rob = segments.filter(s => s.type === 'rob');
+    if (rob.length === 0) return;
+
+    const lines = ['#!/bin/bash', '# Rob voice clips — generated by timestamp-logger', ''];
+    rob.forEach((s, i) => {
+      const n = String(i+1).padStart(2,'0');
+      lines.push(`ffmpeg -i assets/rob-source.mp3 -ss ${s.start.toFixed(3)} -to ${s.end.toFixed(3)} -c copy assets/rob-voice-clip-${n}.mp3`);
+    });
+    lines.push('');
+    lines.push('# Merge all Rob clips into one file for ElevenLabs upload');
+    const inputs = rob.map((_,i) => `assets/rob-voice-clip-${String(i+1).padStart(2,'0')}.mp3`).join('|');
+    lines.push(`ffmpeg -i "concat:${inputs}" -acodec copy assets/rob-voice-clean.mp3`);
+    lines.push('');
+    lines.push(`# Total Rob audio: ${rob.reduce((a,s) => a + s.end - s.start, 0).toFixed(1)}s`);
+
+    document.getElementById('export-area').textContent = lines.join('\n');
+    document.getElementById('export-area').style.display = 'block';
+  }
+
+  function exportLog() {
+    updateExport();
+    const text = document.getElementById('export-area').textContent;
+    const a = document.createElement('a');
+    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+    a.download = 'extract-rob-voice.sh';
+    a.click();
+  }
+
+  function copyLog() {
+    navigator.clipboard.writeText(JSON.stringify(segments, null, 2));
+    flashStatus('✓ JSON copied');
+  }
+
+  function setSpeed(s) {
+    audio.playbackRate = s;
+    document.querySelectorAll('.spd').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>
