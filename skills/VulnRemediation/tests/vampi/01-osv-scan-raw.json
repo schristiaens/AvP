@@ -1,0 +1,116 @@
+[
+  {
+    "finding_id": "osv-GHSA-m2qf-hxjv-5gpq",
+    "source_system": "osv",
+    "repository": "erev0s/VAmPI",
+    "branch": "master",
+    "manifest_path": "requirements.txt",
+    "ecosystem": "npm",
+    "package_name": "flask",
+    "purl": "pkg:pypi/flask",
+    "current_version": "2.2.2",
+    "candidate_fixed_versions": [
+      "2.3.2",
+      "2.2.5"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [],
+    "severity": "high",
+    "advisory_ids": [
+      "GHSA-m2qf-hxjv-5gpq",
+      "CVE-2023-30861",
+      "PYSEC-2023-62"
+    ],
+    "scanner_evidence_urls": [
+      "https://osv.dev/vulnerability/GHSA-m2qf-hxjv-5gpq"
+    ],
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "osv-GHSA-752w-5fwx-jx9f",
+    "source_system": "osv",
+    "repository": "erev0s/VAmPI",
+    "branch": "master",
+    "manifest_path": "requirements.txt",
+    "ecosystem": "npm",
+    "package_name": "PyJWT",
+    "purl": "pkg:pypi/PyJWT",
+    "current_version": "2.6.0",
+    "candidate_fixed_versions": [
+      "2.12.0"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [],
+    "severity": "high",
+    "advisory_ids": [
+      "GHSA-752w-5fwx-jx9f",
+      "CVE-2026-32597"
+    ],
+    "scanner_evidence_urls": [
+      "https://osv.dev/vulnerability/GHSA-752w-5fwx-jx9f"
+    ],
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "osv-PYSEC-2023-62",
+    "source_system": "osv",
+    "repository": "erev0s/VAmPI",
+    "branch": "master",
+    "manifest_path": "requirements.txt",
+    "ecosystem": "npm",
+    "package_name": "flask",
+    "purl": "pkg:pypi/flask",
+    "current_version": "2.2.2",
+    "candidate_fixed_versions": [
+      "afd63b16170b7c047f5758eb910c416511e9c965",
+      "70f906c51ce49c485f1d355703e9cc3386b1cc2b",
+      "2.3.2",
+      "2.2.5"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [],
+    "severity": "medium",
+    "advisory_ids": [
+      "PYSEC-2023-62",
+      "CVE-2023-30861",
+      "GHSA-m2qf-hxjv-5gpq"
+    ],
+    "scanner_evidence_urls": [
+      "https://osv.dev/vulnerability/PYSEC-2023-62"
+    ],
+    "fix_types_available": [
+      "update"
+    ]
+  },
+  {
+    "finding_id": "osv-GHSA-68rp-wp8r-4726",
+    "source_system": "osv",
+    "repository": "erev0s/VAmPI",
+    "branch": "master",
+    "manifest_path": "requirements.txt",
+    "ecosystem": "npm",
+    "package_name": "flask",
+    "purl": "pkg:pypi/flask",
+    "current_version": "2.2.2",
+    "candidate_fixed_versions": [
+      "3.1.3"
+    ],
+    "dependency_type": "direct",
+    "dependency_path": [],
+    "severity": "low",
+    "advisory_ids": [
+      "GHSA-68rp-wp8r-4726",
+      "CVE-2026-27205"
+    ],
+    "scanner_evidence_urls": [
+      "https://osv.dev/vulnerability/GHSA-68rp-wp8r-4726"
+    ],
+    "fix_types_available": [
+      "update"
+    ]
+  }
+]

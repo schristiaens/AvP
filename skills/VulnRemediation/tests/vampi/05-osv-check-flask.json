@@ -1,0 +1,8 @@
+{
+  "version": "2.3.2",
+  "safe": false,
+  "advisories": [
+    "GHSA-68rp-wp8r-4726"
+  ],
+  "severity_introduced": null
+}

@@ -1,0 +1,111 @@
+{
+  "findings": [
+    {
+      "finding_id": "osv-GHSA-752w-5fwx-jx9f",
+      "source_system": "osv",
+      "repository": "erev0s/VAmPI",
+      "branch": "master",
+      "manifest_path": "requirements.txt",
+      "ecosystem": "npm",
+      "package_name": "PyJWT",
+      "purl": "pkg:pypi/PyJWT",
+      "current_version": "2.6.0",
+      "candidate_fixed_versions": [
+        "2.12.0"
+      ],
+      "dependency_type": "direct",
+      "dependency_path": [],
+      "severity": "high",
+      "cvss": null,
+      "epss": null,
+      "exploit_maturity": null,
+      "reachable": null,
+      "runtime_exposure": null,
+      "advisory_ids": [
+        "GHSA-752w-5fwx-jx9f",
+        "CVE-2026-32597"
+      ],
+      "scanner_evidence_urls": [
+        "https://osv.dev/vulnerability/GHSA-752w-5fwx-jx9f"
+      ],
+      "introduced_via": null,
+      "fix_types_available": [
+        "update"
+      ]
+    }
+  ],
+  "strategy": {
+    "finding": {
+      "finding_id": "osv-GHSA-752w-5fwx-jx9f",
+      "source_system": "osv",
+      "repository": "erev0s/VAmPI",
+      "branch": "master",
+      "manifest_path": "requirements.txt",
+      "ecosystem": "npm",
+      "package_name": "PyJWT",
+      "purl": "pkg:pypi/PyJWT",
+      "current_version": "2.6.0",
+      "candidate_fixed_versions": [
+        "2.12.0"
+      ],
+      "dependency_type": "direct",
+      "dependency_path": [],
+      "severity": "high",
+      "cvss": null,
+      "epss": null,
+      "exploit_maturity": null,
+      "reachable": null,
+      "runtime_exposure": null,
+      "advisory_ids": [
+        "GHSA-752w-5fwx-jx9f",
+        "CVE-2026-32597"
+      ],
+      "scanner_evidence_urls": [
+        "https://osv.dev/vulnerability/GHSA-752w-5fwx-jx9f"
+      ],
+      "introduced_via": null,
+      "fix_types_available": [
+        "update"
+      ]
+    },
+    "recommended_strategy": "update",
+    "target_version": "2.12.0",
+    "confidence": 0.92,
+    "rationale": "Minor version update resolves algorithm confusion vulnerability. OSV/GHSA confirms 2.12.0 is clean. No breaking changes detected in changelog.",
+    "breaking_change_signals": {
+      "semver_delta": "minor",
+      "changelog_url": "https://github.com/jpadilla/pyjwt/blob/master/CHANGELOG.rst",
+      "breaking_changes": [],
+      "deprecations": [],
+      "api_changes": []
+    },
+    "candidate_checks": [
+      {
+        "version": "2.12.0",
+        "safe": true,
+        "advisories": [],
+        "severity_introduced": null
+      }
+    ],
+    "alternatives_considered": [
+      "Update to 2.8.0 (minimum fix) \u2014 chosen 2.12.0 for broader advisory coverage"
+    ]
+  },
+  "validation": {
+    "success": true,
+    "test_passed": true,
+    "build_passed": true,
+    "rescan_clean": true,
+    "confidence": 0.92,
+    "test_output_summary": "15 passing, 0 failing",
+    "scan_output_summary": "No advisories found for PyJWT@2.12.0",
+    "lockfile_diff_summary": "1 package updated (PyJWT 2.6.0 \u2192 2.12.0)",
+    "execution_mode": "direct"
+  },
+  "consumers": [
+    "app/api/routes.py"
+  ],
+  "commit_sha": "def789abc012",
+  "has_generated_tests": false,
+  "is_major_update": false
+}

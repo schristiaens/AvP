@@ -1,0 +1,98 @@
+{
+  "total": 4,
+  "selected": [
+    {
+      "finding_id": "osv-GHSA-m2qf-hxjv-5gpq",
+      "source_system": "osv",
+      "repository": "erev0s/VAmPI",
+      "branch": "master",
+      "manifest_path": "requirements.txt",
+      "ecosystem": "npm",
+      "package_name": "flask",
+      "purl": "pkg:pypi/flask",
+      "current_version": "2.2.2",
+      "candidate_fixed_versions": [
+        "2.3.2",
+        "2.2.5"
+      ],
+      "dependency_type": "direct",
+      "dependency_path": [],
+      "severity": "high",
+      "cvss": null,
+      "epss": null,
+      "exploit_maturity": null,
+      "reachable": null,
+      "runtime_exposure": null,
+      "advisory_ids": [
+        "GHSA-m2qf-hxjv-5gpq",
+        "CVE-2023-30861",
+        "PYSEC-2023-62"
+      ],
+      "scanner_evidence_urls": [
+        "https://osv.dev/vulnerability/GHSA-m2qf-hxjv-5gpq"
+      ],
+      "introduced_via": null,
+      "fix_types_available": [
+        "update"
+      ]
+    },
+    {
+      "finding_id": "osv-GHSA-752w-5fwx-jx9f",
+      "source_system": "osv",
+      "repository": "erev0s/VAmPI",
+      "branch": "master",
+      "manifest_path": "requirements.txt",
+      "ecosystem": "npm",
+      "package_name": "PyJWT",
+      "purl": "pkg:pypi/PyJWT",
+      "current_version": "2.6.0",
+      "candidate_fixed_versions": [
+        "2.12.0"
+      ],
+      "dependency_type": "direct",
+      "dependency_path": [],
+      "severity": "high",
+      "cvss": null,
+      "epss": null,
+      "exploit_maturity": null,
+      "reachable": null,
+      "runtime_exposure": null,
+      "advisory_ids": [
+        "GHSA-752w-5fwx-jx9f",
+        "CVE-2026-32597"
+      ],
+      "scanner_evidence_urls": [
+        "https://osv.dev/vulnerability/GHSA-752w-5fwx-jx9f"
+      ],
+      "introduced_via": null,
+      "fix_types_available": [
+        "update"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "finding_id": "osv-PYSEC-2023-62",
+      "package_name": "flask",
+      "severity": "medium",
+      "advisory_ids": [
+        "PYSEC-2023-62",
+        "CVE-2023-30861",
+        "GHSA-m2qf-hxjv-5gpq"
+      ],
+      "skip_reason": "below_severity",
+      "skip_detail": "medium severity below high threshold"
+    },
+    {
+      "finding_id": "osv-GHSA-68rp-wp8r-4726",
+      "package_name": "flask",
+      "severity": "low",
+      "advisory_ids": [
+        "GHSA-68rp-wp8r-4726",
+        "CVE-2026-27205"
+      ],
+      "skip_reason": "below_severity",
+      "skip_detail": "low severity below high threshold"
+    }
+  ]
+}
