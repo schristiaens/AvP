@@ -590,3 +590,59 @@ cd ../avp-narration-engine && claude
 # Human B, Agent 4
 cd ../avp-judge-system && claude
 ```
+
+---
+
+## Cross-Agent Communication: STATUS.md Protocol
+
+All inter-agent notifications happen through `STATUS.md` on `main`. No real-time coordination needed — agents pull main at checkpoints to read status.
+
+### First-Time Setup (every team must do this)
+
+The first time your team updates STATUS.md, **your team name is required**. Without it, other agents can't identify who produced what or who to contact for blockers.
+
+**Find your agent row in STATUS.md and update it:**
+```
+**Status:** `IN_PROGRESS` — [what you're doing] (timestamp) | Team: [YOUR TEAM NAME]
+```
+
+**Example:**
+```
+**Status:** `IN_PROGRESS` — building glitch.css (2026-03-14 14:30) | Team: Team Kickass
+```
+
+### The Update Pattern (every agent, at every checkpoint)
+
+```bash
+# 1. Pull latest from main (in your worktree)
+git fetch origin main
+git rebase origin/main
+
+# 2. Edit STATUS.md — update your agent row + add a handoff log entry
+# 3. Commit and push ONLY STATUS.md back to main
+git add STATUS.md
+git commit -m "status: [Team Name] / Agent N — [one-line summary]"
+git push origin HEAD:main
+```
+
+> `STATUS.md` is the ONLY file ever pushed directly to `main` mid-task. Everything else stays in your feature branch until done.
+
+### When to Update
+
+| Trigger | What to write |
+|---|---|
+| You start work | `IN_PROGRESS — starting [first task]` |
+| You hit T+1h checkpoint | `CHECKPOINT — [what's done], [what's next]` |
+| You finish your workstream | `DONE — branch ready to merge` |
+| You're blocked | `BLOCKED — [describe the blocker]` + add to handoff log tagging the team who can unblock you |
+| You produce output another agent needs | `NEEDS_REVIEW` + add handoff log entry tagging their agent number |
+
+### Checkpoint Pull Schedule
+
+Each team should pull `main` and read STATUS.md at:
+- **T+1:00** — check that contracts are live; confirm no blockers across teams
+- **T+2:30** — Agents 2/3/4 signal DONE; Human A knows assembly can start when Agent 1 finishes
+- **T+3:30** — Human A signals assembly start; Human B confirms judge is ready
+- **T+4:30** — Human B signals judge run complete; review `judge-report.json`
+
+Full STATUS.md instructions: see `STATUS.md` at repo root.
