@@ -116,18 +116,33 @@ elevenlabs.voiceId: <PASTE ROB'S CLONED VOICE ID HERE>
 elevenlabs.voiceName: "Rob-AvP"
 ```
 
-Also set it as an environment variable before Agent 1 starts audio generation:
+**Getting your ElevenLabs API key:**
+1. elevenlabs.io → sign in → profile icon (bottom-left) → **Profile + API key**
+2. Click **Generate API Key** → name it (e.g. `avp-hackathon`) → copy immediately (shown once)
+3. Note: ElevenLabs keys are **all-or-nothing** — no permission scopes. Delete it after the hackathon.
+
+Set as environment variables before Agent 1 starts audio generation (session-only, never touches disk):
 ```bash
-export ELEVENLABS_API_KEY="your-api-key-here"
-export ELEVENLABS_VOICE_ID="robs-cloned-voice-id-here"
+export ELEVENLABS_API_KEY="sk_..."
+export ELEVENLABS_VOICE_ID="i4EnGJF2kqAtJwu6NEgs"
 ```
 
-### Step 5 — Quick sanity check
+### Step 5 — Quick sanity check (curl test)
 
-Test Rob's cloned voice before committing to it for the whole presentation:
-1. ElevenLabs dashboard → select Rob-AvP voice → type a test line → Generate
-2. Confirm it sounds like Rob — adjust **Stability** (0.3–0.7) and **Similarity Boost** (0.7–0.9) sliders
-3. Note down the settings that sound best — pass them to Agent 1
+Confirm both the API key and voice ID are working before Agent 1 burns calls on all 7 slides:
+```bash
+curl -s -o /tmp/rob-test.mp3 \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"We built a secure, agent-orchestrated system. Ship it.","model_id":"eleven_turbo_v2_5","voice_settings":{"stability":0.5,"similarity_boost":0.75}}' \
+  "https://api.elevenlabs.io/v1/text-to-speech/i4EnGJF2kqAtJwu6NEgs" \
+  && open /tmp/rob-test.mp3
+```
+
+If it plays and sounds like Rob, hand off to Agent 1. If quality needs tuning:
+- Adjust **Stability** (0.3 = more expressive, 0.7 = more consistent)
+- Adjust **Similarity Boost** (0.7–0.9 recommended)
+- Pass final values to Agent 1 to use in the voice_settings body
 
 ### Done when:
 - [x] Rob's Voice ID confirmed: `i4EnGJF2kqAtJwu6NEgs` — set as `ELEVENLABS_VOICE_ID` env var
