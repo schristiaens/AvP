@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Agent 2 — Voice Audition</title>
+  <style>
+    :root {
+      --bg: #0a0a0f; --accent: #00e5ff; --accent2: #7b2fff;
+      --text: #e8e8f0; --dim: #8888aa; --mono: "Courier New", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--mono); padding: 2rem; }
+    h1 { color: var(--accent); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.25rem; }
+    p.sub { color: var(--dim); font-size: 0.7rem; margin-bottom: 1.5rem; }
+
+    .script-area {
+      background: #111128; border: 1px solid #1e1e3a; border-radius: 4px;
+      padding: 0.75rem 1rem; margin-bottom: 1.5rem;
+    }
+    .script-area label { font-size: 0.65rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.4rem; }
+    .script-area textarea {
+      width: 100%; background: transparent; border: none; outline: none;
+      color: var(--accent); font-family: var(--mono); font-size: 0.8rem;
+      line-height: 1.6; resize: vertical; min-height: 80px;
+    }
+
+    .controls { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .controls label { font-size: 0.65rem; color: var(--dim); }
+    .controls input[type=range] { accent-color: var(--accent); width: 120px; }
+    .controls span { font-size: 0.7rem; color: var(--accent); min-width: 2.5rem; }
+
+    .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    button.filter {
+      background: #111128; border: 1px solid #1e1e3a; color: var(--dim);
+      font-family: var(--mono); font-size: 0.6rem; padding: 0.25rem 0.7rem;
+      cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; border-radius: 3px;
+    }
+    button.filter.active { border-color: var(--accent2); color: var(--accent); background: #0d0d1a; }
+
+    #voice-list { display: flex; flex-direction: column; gap: 0.4rem; max-height: 60vh; overflow-y: auto; }
+
+    .voice-row {
+      display: grid; grid-template-columns: 1fr auto auto auto;
+      align-items: center; gap: 0.75rem;
+      background: #111128; border: 1px solid #1e1e3a; border-radius: 4px;
+      padding: 0.5rem 0.75rem; transition: border-color 0.15s;
+    }
+    .voice-row:hover { border-color: var(--accent2); }
+    .voice-row.playing { border-color: var(--accent); background: #0d1a2a; }
+    .voice-row.techbro { border-color: var(--accent2); }
+
+    .voice-info { display: flex; flex-direction: column; gap: 0.1rem; }
+    .voice-name { font-size: 0.75rem; color: var(--text); }
+    .voice-meta { font-size: 0.6rem; color: var(--dim); }
+    .voice-badge {
+      font-size: 0.55rem; padding: 0.1rem 0.4rem; border-radius: 2px;
+      text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap;
+    }
+    .badge-en  { background: rgba(0,229,255,0.1); color: var(--accent); border: 1px solid rgba(0,229,255,0.3); }
+    .badge-male { background: rgba(123,47,255,0.1); color: var(--accent2); border: 1px solid rgba(123,47,255,0.3); }
+    .badge-star { background: rgba(255,45,120,0.15); color: #ff2d78; border: 1px solid rgba(255,45,120,0.4); }
+
+    button.play {
+      background: #0d0d1a; border: 1px solid var(--accent2); color: var(--accent);
+      font-family: var(--mono); font-size: 0.65rem; padding: 0.3rem 0.7rem;
+      cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap;
+      border-radius: 3px; min-width: 64px;
+    }
+    button.play:hover { background: #1e1e3a; }
+    button.play.active { border-color: var(--accent); background: #0d1a2a; }
+
+    button.star {
+      background: transparent; border: 1px solid #1e1e3a; color: var(--dim);
+      font-size: 0.75rem; padding: 0.25rem 0.5rem; cursor: pointer; border-radius: 3px;
+    }
+    button.star.starred { border-color: #ff2d78; color: #ff2d78; }
+
+    #selected {
+      margin-top: 1.5rem; padding: 0.75rem 1rem;
+      background: #0d1a2a; border: 1px solid var(--accent);
+      border-radius: 4px; font-size: 0.7rem;
+    }
+    #selected h3 { color: var(--accent); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    #selected-list { color: var(--text); line-height: 1.8; }
+
+    #no-voices { color: #ff2d78; font-size: 0.8rem; display: none; }
+  </style>
+</head>
+<body>
+
+<h1>▸ Voice Audition — Web Speech API</h1>
+<p class="sub">Find the tech bro voice. Click ▶ Play to audition. Star the ones you like.</p>
+
+<!-- Sample script -->
+<div class="script-area">
+  <label>Sample script (edit freely)</label>
+  <textarea id="script">We didn't just build a presentation. We built a secure, contract-driven, agent-orchestrated system. Four agents. Zero conflicts. This is what the future of human-AI collaboration looks like. Ship it.</textarea>
+</div>
+
+<!-- Rate / Pitch controls -->
+<div class="controls">
+  <label>Rate:</label>
+  <input type="range" id="rate" min="0.6" max="1.6" step="0.05" value="1.05"
+         oninput="document.getElementById('rateVal').textContent=this.value">
+  <span id="rateVal">1.05</span>
+
+  <label style="margin-left:1rem">Pitch:</label>
+  <input type="range" id="pitch" min="0.5" max="1.8" step="0.05" value="0.9"
+         oninput="document.getElementById('pitchVal').textContent=this.value">
+  <span id="pitchVal">0.90</span>
+
+  <button class="filter active" style="margin-left:1rem" onclick="stopAll()">■ Stop</button>
+</div>
+
+<!-- Filters -->
+<div class="filter-bar">
+  <span style="font-size:0.6rem;color:var(--dim);align-self:center">Filter:</span>
+  <button class="filter active" onclick="filterVoices('all', this)">All</button>
+  <button class="filter" onclick="filterVoices('en', this)">English only</button>
+  <button class="filter" onclick="filterVoices('male', this)">Male (guessed)</button>
+  <button class="filter" onclick="filterVoices('starred', this)">⭐ Starred</button>
+</div>
+
+<div id="no-voices">⚠ No voices loaded yet — try refreshing. Chrome sometimes loads voices async.</div>
+<div id="voice-list"></div>
+
+<!-- Selected voices summary -->
+<div id="selected">
+  <h3>⭐ Starred voices</h3>
+  <div id="selected-list" style="color:var(--dim);font-size:0.65rem">None yet — star voices you want to compare</div>
+</div>
+
+<script>
+  let voices = [];
+  let starred = new Set();
+  let currentUtterance = null;
+  let activeFilter = 'all';
+
+  // Male name heuristics — Web Speech API doesn't expose gender
+  const maleNames = [
+    'alex','fred','tom','daniel','oliver','arthur','gordon','bruce',
+    'junior','ralph','albert','bad news','bahh','boing','bubbles',
+    'cellos','deranged','good news','hysterical','jester','organ',
+    'trinoids','whisper','zarvox','profanity','bells','boing',
+    'google uk english male','microsoft david','microsoft mark',
+    'microsoft george','david','mark','george','james','aaron',
+    'nicky','reed','robbie','rocko','sandy','shelley','wayne'
+  ];
+
+  function likelyMale(name) {
+    const n = name.toLowerCase();
+    return maleNames.some(m => n.includes(m));
+  }
+
+  function loadVoices() {
+    voices = window.speechSynthesis.getVoices();
+    if (voices.length === 0) {
+      document.getElementById('no-voices').style.display = 'block';
+      return;
+    }
+    document.getElementById('no-voices').style.display = 'none';
+    renderList();
+  }
+
+  function renderList() {
+    const list = document.getElementById('voice-list');
+    list.innerHTML = '';
+
+    let filtered = voices.filter(v => {
+      if (activeFilter === 'en') return v.lang.startsWith('en');
+      if (activeFilter === 'male') return v.lang.startsWith('en') && likelyMale(v.name);
+      if (activeFilter === 'starred') return starred.has(v.name);
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<div style="color:var(--dim);font-size:0.7rem;padding:1rem">No voices match this filter.</div>';
+      return;
+    }
+
+    filtered.forEach((v, i) => {
+      const isMale = likelyMale(v.name);
+      const isEn = v.lang.startsWith('en');
+      const isStarred = starred.has(v.name);
+      const row = document.createElement('div');
+      row.className = 'voice-row' + (isStarred ? ' techbro' : '');
+      row.id = 'row-' + v.name.replace(/\s+/g,'-');
+
+      row.innerHTML = `
+        <div class="voice-info">
+          <span class="voice-name">${v.name}</span>
+          <span class="voice-meta">${v.lang} ${v.localService ? '· local' : '· network'}</span>
+        </div>
+        <div style="display:flex;gap:0.3rem;flex-wrap:wrap">
+          ${isEn ? '<span class="voice-badge badge-en">EN</span>' : ''}
+          ${isMale ? '<span class="voice-badge badge-male">♂</span>' : ''}
+          ${isStarred ? '<span class="voice-badge badge-star">⭐ starred</span>' : ''}
+        </div>
+        <button class="play" id="btn-${v.name.replace(/\s+/g,'-')}" onclick="speak('${v.name.replace(/'/g,"\\'")}')">▶ Play</button>
+        <button class="star ${isStarred ? 'starred' : ''}" onclick="toggleStar('${v.name.replace(/'/g,"\\'")}', this)">★</button>
+      `;
+      list.appendChild(row);
+    });
+  }
+
+  function speak(voiceName) {
+    stopAll();
+    const text = document.getElementById('script').value;
+    const rate = parseFloat(document.getElementById('rate').value);
+    const pitch = parseFloat(document.getElementById('pitch').value);
+
+    const u = new SpeechSynthesisUtterance(text);
+    u.voice = voices.find(v => v.name === voiceName);
+    u.rate = rate;
+    u.pitch = pitch;
+
+    const btnId = 'btn-' + voiceName.replace(/\s+/g, '-');
+    const rowId = 'row-' + voiceName.replace(/\s+/g, '-');
+    const btn = document.getElementById(btnId);
+    const row = document.getElementById(rowId);
+    if (btn) { btn.textContent = '■ Stop'; btn.classList.add('active'); }
+    if (row) row.classList.add('playing');
+
+    u.onend = u.onerror = () => {
+      if (btn) { btn.textContent = '▶ Play'; btn.classList.remove('active'); }
+      if (row) row.classList.remove('playing');
+      currentUtterance = null;
+    };
+
+    currentUtterance = u;
+    window.speechSynthesis.speak(u);
+  }
+
+  function stopAll() {
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.play.active').forEach(b => {
+      b.textContent = '▶ Play'; b.classList.remove('active');
+    });
+    document.querySelectorAll('.voice-row.playing').forEach(r => r.classList.remove('playing'));
+    currentUtterance = null;
+  }
+
+  function toggleStar(name, btn) {
+    if (starred.has(name)) {
+      starred.delete(name);
+      btn.classList.remove('starred');
+    } else {
+      starred.add(name);
+      btn.classList.add('starred');
+    }
+    updateSelectedList();
+    renderList(); // re-render to update badge
+  }
+
+  function updateSelectedList() {
+    const el = document.getElementById('selected-list');
+    if (starred.size === 0) {
+      el.innerHTML = '<span style="color:var(--dim);font-size:0.65rem">None yet</span>';
+    } else {
+      el.innerHTML = [...starred].map(n =>
+        `<div>⭐ <strong style="color:var(--accent)">${n}</strong>
+          — <button onclick="speak('${n.replace(/'/g,"\\'")}'); return false"
+              style="background:none;border:none;color:var(--accent2);cursor:pointer;font-family:var(--mono);font-size:0.65rem">▶ replay</button>
+        </div>`
+      ).join('');
+    }
+  }
+
+  function filterVoices(type, btn) {
+    activeFilter = type;
+    document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderList();
+  }
+
+  // Load voices — Chrome loads them async
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+  loadVoices();
+  // Fallback for browsers that load synchronously
+  setTimeout(loadVoices, 500);
+</script>
+</body>
+</html>

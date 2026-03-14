@@ -59,23 +59,38 @@ Every slide follows this exact structure. Agents 1, 2, and 3 all depend on this.
 
 ### Contract 2: Narration Map Schema (`content/narration.json`)
 
+**Audio source: ElevenLabs** — pre-rendered MP3 per slide, base64-embedded at assembly.
+Web Speech API removed. `voice` block replaced with `elevenlabs` config.
+
 ```json
 {
-  "voice": {
-    "name": null,
-    "rate": 1.1,
-    "pitch": 0.85
+  "elevenlabs": {
+    "voiceId": "pNInz6obpgDQGcFmaJgB",
+    "model": "eleven_turbo_v2_5",
+    "voiceName": "Adam"
   },
   "entries": [
     {
       "slideId": "slide-0",
       "text": "The narration text for this slide.",
+      "audioFile": "content/audio/slide-0.mp3",
       "pauseBeforeMs": 500,
       "pauseAfterMs": 300
     }
   ]
 }
 ```
+
+**ElevenLabs voice options (recommended):**
+| Voice | ID | Character |
+|---|---|---|
+| Adam | `pNInz6obpgDQGcFmaJgB` | Deep, confident, authoritative — best tech-bro fit |
+| Josh | `TxGEqnHWrfWFTfGW9XjX` | Young, energetic, conversational |
+| Arnold | `VR6AewLTigWG4xSOukaG` | Strong, bold, commanding |
+
+**Generation:** Agent 1 calls ElevenLabs API per slide text, saves MP3 to `content/audio/slide-{n}.mp3`.
+**Assembly:** `assemble.sh` base64-encodes each MP3 into `<audio>` data URIs in the final HTML.
+**Fallback:** If `audioFile` is missing, narration engine falls back to Web Speech API for that slide.
 
 ### Contract 3: CSS Class Naming Convention
 
@@ -103,6 +118,14 @@ Reveal.isLastSlide();
 
 // Global state (set by narration engine):
 window.NARRATION_MAP = { /* inlined from narration.json at build time */ };
+
+// Audio elements (inlined at assembly — base64 data URIs):
+// <audio id="audio-slide-0" src="data:audio/mp3;base64,..."></audio>
+// Narration engine selects by: document.getElementById('audio-' + slideId)
+
+// Jaw animation hooks into audio events (not Speech API):
+// audio.onplay  → #max-headroom.classList.add('is-speaking')
+// audio.onended → #max-headroom.classList.remove('is-speaking') → advance slide
 ```
 
 ### Contract 5: Judge Report Schema (`judge-report.json`)
@@ -188,7 +211,11 @@ project/
 │
 ├── content/                       ← AGENT 1 OWNS (exclusive)
 │   ├── slides.json                   slide content data
-│   └── narration.json                narration map
+│   ├── narration.json                narration map (includes audioFile paths)
+│   └── audio/                        ElevenLabs MP3s — one per slide
+│       ├── slide-0.mp3
+│       ├── slide-1.mp3
+│       └── ...
 │
 ├── src/
 │   ├── shell.html                 ← AGENT 1 OWNS (exclusive)
@@ -241,11 +268,18 @@ project/
    - Tone: assertive, concrete, technically specific, Max Headroom personality
    - Each slide: ≤ 80 words body + ≤ 5 bullets
 
-2. **Write narration scripts** (1:30 → 2:00)
-   - Generate `content/narration.json` following Contract 2
+2. **Write narration scripts + generate ElevenLabs audio** (1:30 → 2:15)
+   - Generate `content/narration.json` following Contract 2 (updated schema with `audioFile` paths)
    - Each entry: what Max Headroom says aloud for that slide
    - Voice personality: confident, slightly manic, breaks fourth wall, declarative
    - Include pause timing per slide
+   - Call ElevenLabs API for each slide text → save MP3 to `content/audio/slide-{n}.mp3`
+   - **ElevenLabs API:** `POST https://api.elevenlabs.io/v1/text-to-speech/{voiceId}`
+   - **Voice:** Adam (`pNInz6obpgDQGcFmaJgB`) — or whichever voice Team Kickass confirms
+   - **Model:** `eleven_turbo_v2_5` (fast + high quality)
+   - **Headers:** `xi-api-key: {ELEVENLABS_API_KEY}`, `Content-Type: application/json`
+   - **Body:** `{ "text": "...", "model_id": "eleven_turbo_v2_5", "voice_settings": { "stability": 0.5, "similarity_boost": 0.75 } }`
+   - Save API key as env var `ELEVENLABS_API_KEY` — never commit to repo
 
 3. **Build HTML shell** (2:00 → 2:30)
    - Create `src/shell.html` with Reveal.js scaffold (CDN + local fallback)
@@ -263,9 +297,11 @@ project/
      2. Inlines all CSS from `src/styles/*.css` into `<style>` block
      3. Injects slide HTML fragments in order into `<div class="slides">`
      4. Inlines `content/narration.json` as `window.NARRATION_MAP` in `<script>`
-     5. Inlines all JS from `src/js/` in order: `speech-config.js` → `narration-engine.js` → `auto-advance.js`
-     6. Outputs single `presentation.html`
-     7. Validates: no external `src=`/`href=` references (except CDN)
+     5. **Base64-encodes each MP3** from `content/audio/slide-{n}.mp3` and injects as:
+        `<audio id="audio-slide-{n}" src="data:audio/mpeg;base64,{base64}"></audio>`
+     6. Inlines all JS from `src/js/` in order: `audio-config.js` → `narration-engine.js` → `auto-advance.js`
+     7. Outputs single `presentation.html`
+     8. Validates: no external `src=`/`href=` references (except CDN)
 
 ### Exit Criteria
 - `content/slides.json` has 7 slides with full content
@@ -346,43 +382,48 @@ project/
 - Contract 2 (narration map schema) committed to `main`
 - Contract 4 (Reveal.js integration points) committed to `main`
 
+**Audio source change: ElevenLabs MP3s** (not Web Speech API).
+Agent 3 plays pre-rendered `<audio>` elements injected by the assembly script.
+Jaw animation hooks into `audio.onplay` / `audio.onended` instead of Speech API events.
+
 ### Work Items (sequential — each builds on the previous)
 
-1. **Web Speech API wrapper** (0:15 → 0:45)
-   - Create `src/js/speech-config.js`
-   - Voice selection logic: prefer low-pitched, robotic system voices
-   - Configurable `rate` and `pitch` from narration map's `voice` config
-   - Feature detection: check if `window.speechSynthesis` exists
-   - Fallback behavior: if speech unavailable, set `window.SPEECH_AVAILABLE = false`
+1. **Audio config** (0:15 → 0:45)
+   - Create `src/js/audio-config.js` _(replaces speech-config.js)_
+   - Exports ElevenLabs voice settings for reference: voiceId, model, voiceName
+   - Feature detection: check if `HTMLAudioElement` is available (always true in Chrome)
+   - Fallback flag: `window.AUDIO_FALLBACK = true` if audio elements are missing at runtime
+   - Fallback behaviour: if MP3 audio unavailable, fall back to Web Speech API for that slide
 
 2. **Narration engine** (0:45 → 1:30)
    - Create `src/js/narration-engine.js`
-   - Reads `window.NARRATION_MAP` (populated at build time from `narration.json`)
-   - On `slidechanged` event: lookup narration entry by `slideId`, speak text
-   - Manage `SpeechSynthesisUtterance` lifecycle: create, configure voice params, speak
-   - Toggle `.is-speaking` class on `#max-headroom` via `onstart` / `onend`
-   - Handle `pauseBeforeMs` and `pauseAfterMs` timing
-   - If speech unavailable: display narration text as subtitle overlay
+   - Reads `window.NARRATION_MAP` (inlined at build time)
+   - On `slidechanged` event: find `<audio id="audio-{slideId}">`, play it
+   - `audio.onplay` → add `.is-speaking` to `#max-headroom` (triggers jaw animation)
+   - `audio.onended` → remove `.is-speaking`, wait `pauseAfterMs`, call `Reveal.next()`
+   - Handle `pauseBeforeMs`: `setTimeout(audio.play, pauseBeforeMs)`
+   - If audio element missing: show subtitle text + trigger fallback
 
 3. **Auto-advance controller** (1:30 → 2:00)
    - Create `src/js/auto-advance.js`
-   - Listen for `utterance.onend` → wait `pauseAfterMs` → call `Reveal.next()`
-   - Guard: don't advance past last slide (`Reveal.isLastSlide()`)
-   - Fallback: if speech unavailable, use `data-duration-ms` timer for auto-advance
-   - Expose pause/resume controls (keyboard: Space to pause/resume)
+   - Listens for narration engine's `narration:ended` custom event → advances slide
+   - Guard: `Reveal.isLastSlide()` — no advance on final slide
+   - Fallback: if `window.AUDIO_FALLBACK`, use `data-duration-ms` attribute timer
+   - Keyboard: Space = pause/resume current audio + jaw animation
 
 4. **Edge cases + testing** (2:00 → 2:30)
-   - Chrome `onend` bug: sometimes fires before speech actually finishes — add 200ms safety buffer
-   - Test with mock narration map (don't need real content)
-   - Test `.is-speaking` class toggle timing
-   - Verify auto-advance works end-to-end with mock slides
+   - Test with mock `<audio>` elements (short MP3 or silent placeholder)
+   - Verify `.is-speaking` class adds on play and removes on ended
+   - Verify jaw stops when audio ends (no runaway animation)
+   - Verify auto-advance fires after `pauseAfterMs` delay
+   - Verify Space bar pauses/resumes correctly
 
 ### Exit Criteria
-- `src/js/speech-config.js` selects an appropriate voice and exports config
-- `src/js/narration-engine.js` reads `NARRATION_MAP`, speaks per slide, toggles `.is-speaking`
-- `src/js/auto-advance.js` advances slides on speech completion
-- Fallback mode works: subtitle display + timer advance when speech unavailable
-- All JS works against mock data (no dependency on real content)
+- `src/js/audio-config.js` exports ElevenLabs config, sets fallback flag if needed
+- `src/js/narration-engine.js` plays `<audio>` elements, toggles `.is-speaking` on `#max-headroom`
+- `src/js/auto-advance.js` advances slides on audio completion, Space bar pauses
+- Fallback: if audio element missing, subtitle shown + timer advance
+- All JS works against mock `<audio>` elements (no dependency on real ElevenLabs content)
 - All files committed to branch
 
 ---
