@@ -85,9 +85,30 @@ Run the ShipPR workflow (see `ShipPR.md`).
 
 ## Step 6: Post-flight
 
-- Display PR URL to the human
-- Summarize: what was done, what was skipped, and why
-- If any findings were skipped due to low confidence, list them with reasons
+Display the full disposition of every finding. Nothing silently disappears.
+
+### Remediated
+- PR URL and finding(s) it covers
+
+### Not Remediated — Skip Summary
+Merge the triage `TriageSummary.skipped` list with any findings that failed in later stages:
+- Strategy confidence below threshold → `low_confidence`
+- Validation (build/test/rescan) failed → `validation_failed`
+
+Print the skip summary table (same format as triage output):
+
+```
+── Skip Summary (N of M findings not remediated) ──
+  below_severity      (12) — medium/low excluded by policy
+  no_fix              (8)  — no known fix version: debug@2.2.0, qs@4.0.0, …
+  already_open        (2)  — existing PR covers this advisory
+  duplicate           (5)  — same advisory fixed via another package
+  not_selected        (3)  — human chose not to remediate
+  low_confidence      (1)  — strategy confidence 0.45 < 0.80 threshold
+  validation_failed   (1)  — build failed after updating needle@3.0.0
+```
+
+This table MUST appear in every run, even when all findings are remediated (in which case: "All N findings remediated — no skips").
 
 ## Confidence Thresholds
 

@@ -36,22 +36,40 @@ Apply the following filters and scoring from config:
 
 1. **Load findings** — from FetchFindings output or provided file
 2. **Load policy** — read `.vuln-remediation.yml` from repo root, merge with defaults
-3. **Apply severity filter** — remove findings below threshold
-4. **Run dedup-check** — for each finding's advisory IDs, check for existing PRs
-5. **Score remaining findings** — apply weighted scoring
-6. **Rank** — sort by composite score, descending
-7. **Present to human**:
-   - Ranked list with score, package, severity, exploit maturity, fix available
-   - Excluded findings with reason for exclusion
-   - Recommendation: "I recommend starting with these N findings"
-8. **Human selects** which finding(s) to remediate
+3. **Apply severity filter** — tag excluded findings with `below_severity`
+4. **Apply fix-availability filter** — tag findings with no fix and severity < critical as `no_fix`
+5. **Run dedup-check** — tag findings with existing PRs as `already_open`; tag same-advisory duplicates as `duplicate`
+6. **Score remaining findings** — apply weighted scoring
+7. **Rank** — sort by composite score, descending
+8. **Present to human** — display both the ranked candidates AND the skip summary (see Output below)
+9. **Human selects** which finding(s) to remediate — tag unselected as `not_selected`
 
 ## Output
 
-- Prioritized list of findings with reasoning for each inclusion/exclusion
-- Human's selection (one or more findings to proceed with)
+Always display TWO sections:
+
+### Selected Findings
+Ranked list with score, package, severity, exploit maturity, fix available.
+
+### Skip Summary
+**Always shown.** One line per skip reason with count and example packages. Format:
+
+```
+── Skip Summary (N of M findings not remediated) ──
+  below_severity  (12) — Below severity threshold (medium/low excluded)
+  no_fix          (8)  — No fix available (non-critical): debug@2.2.0, qs@4.0.0, …
+  already_open    (2)  — Existing PR already covers this: GHSA-xxxx
+  duplicate       (5)  — Same advisory fixed via another package
+```
+
+Each skipped finding is recorded as a `SkippedFinding` (see models.py) with:
+- `skip_reason`: one of `below_severity`, `no_fix`, `already_open`, `duplicate`, `not_selected`
+- `skip_detail`: one-line explanation specific to that finding
+
+Build a `TriageSummary` containing both `selected` and `skipped` lists. This summary is passed forward to the Remediate workflow for post-flight reporting.
 
 ## Notes
 
 - This workflow does NOT modify the repository
 - Can operate on stale findings — useful for re-triaging after partial remediation
+- Every finding must appear in either `selected` or `skipped` — nothing silently disappears

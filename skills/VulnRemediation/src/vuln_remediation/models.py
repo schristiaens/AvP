@@ -37,6 +37,27 @@ class StrategyType(StrEnum):
     MITIGATE = "mitigate"
 
 
+class SkipReason(StrEnum):
+    BELOW_SEVERITY = "below_severity"  # severity < threshold
+    NO_FIX = "no_fix"  # no known fix version and severity < critical
+    ALREADY_OPEN = "already_open"  # existing PR or branch covers this advisory
+    DUPLICATE = "duplicate"  # same advisory already addressed by another finding
+    LOW_CONFIDENCE = "low_confidence"  # strategy confidence below threshold
+    VALIDATION_FAILED = "validation_failed"  # build/test/rescan failed
+    NOT_SELECTED = "not_selected"  # human chose not to remediate this finding
+
+
+SKIP_REASON_LABEL: dict[SkipReason, str] = {
+    SkipReason.BELOW_SEVERITY: "Below severity threshold",
+    SkipReason.NO_FIX: "No fix available (non-critical)",
+    SkipReason.ALREADY_OPEN: "Existing PR already covers this",
+    SkipReason.DUPLICATE: "Same advisory fixed via another package",
+    SkipReason.LOW_CONFIDENCE: "Fix confidence below threshold",
+    SkipReason.VALIDATION_FAILED: "Build, test, or rescan failed",
+    SkipReason.NOT_SELECTED: "Not selected for remediation",
+}
+
+
 class RemediationStatus(StrEnum):
     PENDING = "pending"
     IN_PROGRESS = "in_progress"
@@ -124,6 +145,31 @@ class DedupCheckResult(BaseModel):
 
     existing_pr: dict | None = None  # {url, status, branch}
     existing_branch: str | None = None
+
+
+class SkippedFinding(BaseModel):
+    """A finding that was not remediated, with the reason why."""
+
+    finding_id: str
+    package_name: str
+    severity: Severity
+    advisory_ids: list[str] = Field(default_factory=list)
+    skip_reason: SkipReason
+    skip_detail: str = ""  # one-line human-readable detail
+
+
+class TriageSummary(BaseModel):
+    """Triage output: what's in, what's out, and why."""
+
+    total: int
+    selected: list[Finding] = Field(default_factory=list)
+    skipped: list[SkippedFinding] = Field(default_factory=list)
+
+    def skip_counts(self) -> dict[SkipReason, int]:
+        counts: dict[SkipReason, int] = {}
+        for s in self.skipped:
+            counts[s.skip_reason] = counts.get(s.skip_reason, 0) + 1
+        return counts
 
 
 class RemediationRecord(BaseModel):
