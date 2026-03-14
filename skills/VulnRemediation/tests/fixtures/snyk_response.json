@@ -1,0 +1,240 @@
+{
+  "data": [
+    {
+      "id": "snyk-issue-001",
+      "type": "issue",
+      "attributes": {
+        "key": "SNYK-JS-LODASH-567746",
+        "title": "Prototype Pollution",
+        "status": "open",
+        "ignored": false,
+        "created_at": "2024-01-15T10:00:00Z",
+        "updated_at": "2024-01-15T10:00:00Z",
+        "effective_severity_level": "high",
+        "type": "vuln",
+        "reachable": "reachable",
+        "package": {
+          "name": "lodash",
+          "version": "4.17.15",
+          "type": "npm"
+        },
+        "problems": [
+          {
+            "id": "SNYK-JS-LODASH-567746",
+            "source": "snyk",
+            "url": "https://security.snyk.io/vuln/SNYK-JS-LODASH-567746"
+          },
+          {
+            "id": "CVE-2020-8203",
+            "source": "nvd",
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-8203"
+          }
+        ],
+        "coordinates": [
+          {
+            "representation": [
+              "pkg:npm/lodash@4.17.15"
+            ],
+            "remedies": [
+              {
+                "type": "upgradable",
+                "description": "Upgrade to lodash@4.17.21",
+                "details": {
+                  "upgrade_to": "4.17.21",
+                  "upgrade_path": ["lodash@4.17.21"]
+                }
+              }
+            ]
+          }
+        ],
+        "risk": {
+          "score": {
+            "value": 614,
+            "factors": [
+              {
+                "name": "cvssScore",
+                "value": "7.4",
+                "description": "CVSS Base Score"
+              },
+              {
+                "name": "epss",
+                "value": "0.00185",
+                "description": "EPSS probability"
+              },
+              {
+                "name": "exploitMaturity",
+                "value": "proof-of-concept",
+                "description": "Exploit maturity"
+              }
+            ]
+          }
+        },
+        "dependency_type": "direct"
+      },
+      "relationships": {
+        "scan_item": {
+          "data": {
+            "id": "project-uuid-123",
+            "type": "project",
+            "meta": {
+              "path": "package.json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "snyk-issue-002",
+      "type": "issue",
+      "attributes": {
+        "key": "SNYK-JS-AXIOS-1038255",
+        "title": "Server-Side Request Forgery (SSRF)",
+        "status": "open",
+        "ignored": false,
+        "created_at": "2024-02-01T08:30:00Z",
+        "updated_at": "2024-02-01T08:30:00Z",
+        "effective_severity_level": "medium",
+        "type": "vuln",
+        "reachable": null,
+        "package": {
+          "name": "axios",
+          "version": "0.21.1",
+          "type": "npm"
+        },
+        "problems": [
+          {
+            "id": "SNYK-JS-AXIOS-1038255",
+            "source": "snyk",
+            "url": "https://security.snyk.io/vuln/SNYK-JS-AXIOS-1038255"
+          }
+        ],
+        "coordinates": [
+          {
+            "representation": [
+              "pkg:npm/axios@0.21.1"
+            ],
+            "remedies": [
+              {
+                "type": "upgradable",
+                "description": "Upgrade to axios@0.21.4",
+                "details": {
+                  "upgrade_to": "0.21.4",
+                  "upgrade_path": ["some-parent@1.0.0", "axios@0.21.4"]
+                }
+              }
+            ]
+          }
+        ],
+        "risk": {
+          "score": {
+            "value": 400,
+            "factors": [
+              {
+                "name": "cvssScore",
+                "value": "5.3",
+                "description": "CVSS Base Score"
+              }
+            ]
+          }
+        },
+        "dependency_type": "transitive"
+      },
+      "relationships": {
+        "scan_item": {
+          "data": {
+            "id": "project-uuid-123",
+            "type": "project",
+            "meta": {
+              "path": "package-lock.json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "snyk-issue-003",
+      "type": "issue",
+      "attributes": {
+        "key": "SNYK-JAVA-ORGAPACHELOGGINGLOG4J-2314720",
+        "title": "Remote Code Execution (RCE)",
+        "status": "open",
+        "ignored": false,
+        "created_at": "2021-12-10T00:00:00Z",
+        "updated_at": "2021-12-10T00:00:00Z",
+        "effective_severity_level": "critical",
+        "type": "vuln",
+        "reachable": "reachable",
+        "package": {
+          "name": "org.apache.logging.log4j:log4j-core",
+          "version": "2.14.1",
+          "type": "maven"
+        },
+        "problems": [
+          {
+            "id": "SNYK-JAVA-ORGAPACHELOGGINGLOG4J-2314720",
+            "source": "snyk",
+            "url": "https://security.snyk.io/vuln/SNYK-JAVA-ORGAPACHELOGGINGLOG4J-2314720"
+          },
+          {
+            "id": "CVE-2021-44228",
+            "source": "nvd",
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+          }
+        ],
+        "coordinates": [
+          {
+            "representation": [
+              "pkg:maven/org.apache.logging.log4j/log4j-core@2.14.1"
+            ],
+            "remedies": [
+              {
+                "type": "upgradable",
+                "description": "Upgrade to log4j-core@2.17.1",
+                "details": {
+                  "upgrade_to": "2.17.1",
+                  "upgrade_path": ["org.apache.logging.log4j:log4j-core@2.17.1"]
+                }
+              }
+            ]
+          }
+        ],
+        "risk": {
+          "score": {
+            "value": 999,
+            "factors": [
+              {
+                "name": "cvssScore",
+                "value": "10.0",
+                "description": "CVSS Base Score"
+              },
+              {
+                "name": "epss",
+                "value": "0.97",
+                "description": "EPSS probability"
+              },
+              {
+                "name": "exploitMaturity",
+                "value": "mature",
+                "description": "Exploit maturity"
+              }
+            ]
+          }
+        },
+        "dependency_type": "direct"
+      },
+      "relationships": {
+        "scan_item": {
+          "data": {
+            "id": "project-uuid-456",
+            "type": "project",
+            "meta": {
+              "path": "pom.xml"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "links": {},
+  "meta": {}
+}

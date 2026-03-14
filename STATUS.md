@@ -41,6 +41,8 @@ Each team pulls `main` to read status before/after sync points.
 
 **Validation:** All 12 Contract 1 / Contract 3 checks passed. Branch ready to merge.
 
+**Post-completion:** Test validation artifacts archived to `assets/archive/` (test-avatar.html, test-contract1.html, test-voices.html).
+
 ---
 
 ## Agent 3 — Narration Engine (Human B)
@@ -63,6 +65,7 @@ Each team pulls `main` to read status before/after sync points.
 |---|---|---|---|
 | 2026-03-14 | Human A | All | Worktree for Agent 2 created. Team Kickass is live on `dev/human-a/css-effects`. |
 | 2026-03-14 | Team Kickass / Agent 2 | Human A (assembly) | DONE. Branch `dev/human-a/css-effects` ready to merge. 3 CSS files + avatar committed. All Contract 1 + Contract 3 checks passed. No blockers. |
+| 2026-03-14 | Team Kickass / Agent 2 | All | CHECKPOINT. VulnRemediation skill Phase 1 data layer complete at `~/.claude/skills/VulnRemediation/`. 45/45 tests passing. Test assets archived to `assets/archive/`. Awaiting Agent 1, 3, 4 to unblock. |
 
 ---
 
