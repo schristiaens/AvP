@@ -130,9 +130,10 @@ Test Rob's cloned voice before committing to it for the whole presentation:
 3. Note down the settings that sound best — pass them to Agent 1
 
 ### Done when:
-- [ ] Rob's Voice ID confirmed and set as `ELEVENLABS_VOICE_ID` env var
-- [ ] Contract 2 `elevenlabs.voiceId` updated in this plan
-- [ ] Voice sounds recognisably like Rob at a reasonable stability setting
+- [x] Rob's Voice ID confirmed: `i4EnGJF2kqAtJwu6NEgs` — set as `ELEVENLABS_VOICE_ID` env var
+- [x] Contract 2 `elevenlabs.voiceId` updated in this plan
+- [x] Voice cloned from YouTube source audio (2026-03-14, Team Kickass)
+- [ ] Voice sounds recognisably like Rob at a reasonable stability setting — sanity check in ElevenLabs dashboard
 - [ ] `ELEVENLABS_API_KEY` set and working (test with a curl call if unsure)
 
 ---
@@ -169,7 +170,7 @@ Web Speech API removed. `voice` block replaced with `elevenlabs` config.
 ```json
 {
   "elevenlabs": {
-    "voiceId": "<ROB_CLONED_VOICE_ID — set during pre-work>",
+    "voiceId": "i4EnGJF2kqAtJwu6NEgs",
     "model": "eleven_turbo_v2_5",
     "voiceName": "Rob-AvP"
   },
@@ -378,8 +379,8 @@ project/
    - Voice personality: confident, slightly manic, breaks fourth wall, declarative
    - Include pause timing per slide
    - Call ElevenLabs API for each slide text → save MP3 to `content/audio/slide-{n}.mp3`
-   - **ElevenLabs API:** `POST https://api.elevenlabs.io/v1/text-to-speech/{voiceId}`
-   - **Voice:** Adam (`pNInz6obpgDQGcFmaJgB`) — or whichever voice Team Kickass confirms
+   - **ElevenLabs API:** `POST https://api.elevenlabs.io/v1/text-to-speech/i4EnGJF2kqAtJwu6NEgs`
+   - **Voice:** Rob-AvP (cloned voice ID: `i4EnGJF2kqAtJwu6NEgs`) — confirmed by Team Kickass
    - **Model:** `eleven_turbo_v2_5` (fast + high quality)
    - **Headers:** `xi-api-key: {ELEVENLABS_API_KEY}`, `Content-Type: application/json`
    - **Body:** `{ "text": "...", "model_id": "eleven_turbo_v2_5", "voice_settings": { "stability": 0.5, "similarity_boost": 0.75 } }`
