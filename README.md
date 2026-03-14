@@ -4,33 +4,48 @@
 
 ## Overview
 
-**AvP** (Agents vs Presentations) is a revolutionary project where AI agents autonomously build a presentation about themselves. This self-referential creation demonstrates the power of coordinated AI systems working together to produce compelling content.
+**AvP** is a dual-component project built for the **NEBULA:FOG 2026 Hackathon**, combining cutting-edge AI automation with practical security tooling. The project consists of two equally important pillars:
 
-This project is being built as part of the **NEBULA:FOG 2026 Hackathon**, showcasing innovative approaches at the intersection of AI and security. The presentation features:
+## 🖥️ Component 1: The Presentation Layer
 
+A revolutionary self-referential presentation where **AI agents autonomously build a presentation about themselves**. This demonstrates coordinated AI systems producing compelling content from concept to delivery.
+
+**Key Features:**
 - **Max Headroom-inspired aesthetic** with glitch effects and CRT styling
 - **Rob's cloned voice narration** using ElevenLabs technology
 - **Auto-advancing slides** synchronized with audio
 - **Agent-built content** from concept to final presentation
 - **AI judge system** for self-evaluation against hackathon criteria
 
-## What's Inside
+**Technology Stack:**
+- Reveal.js presentation framework
+- ElevenLabs voice cloning and audio generation
+- CSS3 animations and visual effects
+- Git-based multi-agent coordination
 
-### Core Presentation System
-- **Agent-built slides**: 7-slide presentation created by coordinated AI agents
-- **ElevenLabs voice cloning**: Pre-rendered audio narration in Rob's voice
-- **Reveal.js framework**: Modern presentation engine with custom theming
-- **Glitch effects**: CSS animations and CRT-style visual effects
-- **Narration engine**: Audio-synchronized auto-advancement
+## 🔧 Component 2: Automated Vulnerability Patching Skill
 
-### Vulnerability Remediation Skill
-As part of our broader AI infrastructure, we've developed a PAI skill for automated vulnerability remediation:
+A comprehensive **PAI skill for automated vulnerability remediation** in software dependencies. This Python-based CLI tool enables security engineers to fix vulnerabilities with minimal manual intervention.
 
-- **Python-based CLI tool** for fixing dependency vulnerabilities
+**Key Features:**
 - **Multi-scanner support**: Snyk, Wiz, and generic report imports
-- **Strategy engine**: Automated fix selection (update, patch, replace, mitigate)
-- **Validation pipeline**: Build/test/re-scan verification
-- **GitHub integration**: PR creation with evidence
+- **Intelligent strategy engine**: Automated fix selection (update, patch, replace, mitigate)
+- **Validation pipeline**: Build/test/re-scan verification before PR creation
+- **Safety checks**: OSV and GHSA database integration
+- **GitHub integration**: Automated PR creation with evidence
+
+**Technology Stack:**
+- Python 3.12+ with uv package management
+- Pydantic for data validation
+- httpx for async HTTP operations
+- Click CLI framework
+- Jinja2 templating
+
+## Both Components Are Equally Important
+
+While the presentation serves as our **hackathon showcase**, the vulnerability remediation skill represents **practical AI tooling** that can be deployed in production environments. Together, they demonstrate the full spectrum of AI capabilities: from creative content generation to mission-critical security automation.
+
+## What's Inside
 
 ## Repository Structure
 
