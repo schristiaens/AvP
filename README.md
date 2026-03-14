@@ -91,16 +91,165 @@ bash build/assemble.sh
 python judge/judge.py --presentation presentation.html --output judge-report.json
 ```
 
-### Use the Vulnerability Remediation Skill
+## 🛠️ Using the Vulnerability Remediation Skill
+
+The vulnerability remediation skill is a standalone CLI tool that helps security engineers identify and fix dependency vulnerabilities.
+
+### Prerequisites
+
+Before using the skill, ensure you have:
+
+- **Python 3.12+** installed
+- **uv** package manager: `pip install uv` or `brew install uv`
+- **GitHub CLI** (`gh`) authenticated: `gh auth login`
+- **Scanner API tokens** (optional, for enhanced functionality):
+  - Snyk token: `SNYK_TOKEN` environment variable
+  - Wiz token: `WIZ_TOKEN` environment variable
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/schristiaens/AvP.git
+   cd AvP/skills/VulnRemediation
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   uv sync
+   ```
+
+3. **Verify installation:**
+   ```bash
+   uv run vuln-remediation --help
+   ```
+
+### Configuration
+
+Create environment variables for API access (optional but recommended):
+
 ```bash
-# Install dependencies
-uv sync
+# Snyk API token (for vulnerability scanning)
+export SNYK_TOKEN="your-snyk-api-token"
 
-# Fetch vulnerabilities from Snyk
-uv run vuln-remediation fetch <org-id> <project-id>
+# GitHub CLI authentication (for PR operations)
+gh auth login
 
-# Analyze a specific finding
-uv run vuln-remediation strategy <finding-id>
+# Optional: Wiz token for additional scanning
+export WIZ_TOKEN="your-wiz-api-token"
+```
+
+### Usage Examples
+
+#### 1. Fetch Vulnerabilities from Snyk
+```bash
+# Fetch all high/critical vulnerabilities from a Snyk project
+uv run vuln-remediation fetch your-org your-project-id
+
+# Filter by ecosystem (npm, maven, docker)
+uv run vuln-remediation fetch your-org your-project-id --ecosystem npm
+
+# Get JSON output for scripting
+uv run vuln-remediation fetch your-org your-project-id --output json
+```
+
+#### 2. Check Package Safety Against Databases
+```bash
+# Check if a specific version has known vulnerabilities
+uv run vuln-remediation osv-check pkg:npm/lodash 4.17.20
+
+# This queries OSV.dev and returns:
+# {
+#   "version": "4.17.20",
+#   "safe": false,
+#   "advisories": ["GHSA-29mw-wpgm-hmr9", "GHSA-35jh-r3h4-6jhm"],
+#   "severity_introduced": null
+# }
+```
+
+#### 3. Analyze Breaking Changes Between Versions
+```bash
+# Check what changed between versions
+uv run vuln-remediation changelog lodash 4.17.19 4.17.20
+
+# Returns breaking change analysis:
+# {
+#   "semver_delta": "patch",
+#   "changelog_url": "https://www.npmjs.com/package/lodash/v/4.17.20",
+#   "breaking_changes": [],
+#   "deprecations": [],
+#   "api_changes": []
+# }
+```
+
+#### 4. Check for Existing Remediation Work
+```bash
+# Search for existing PRs/branches for an advisory
+uv run vuln-remediation dedup-check your-org/your-repo GHSA-29mw-wpgm-hmr9
+
+# Returns:
+# {
+#   "existing_pr": null,
+#   "existing_branch": null
+# }
+```
+
+#### 5. Render PR Templates
+```bash
+# Create sample remediation data
+cat > sample-data.json << 'EOF'
+{
+  "findings": [{
+    "finding_id": "test-finding",
+    "package_name": "lodash",
+    "current_version": "4.17.19",
+    "severity": "high",
+    "advisory_ids": ["GHSA-29mw-wpgm-hmr9"]
+  }],
+  "strategy": {
+    "recommended_strategy": "update",
+    "target_version": "4.17.21",
+    "confidence": 0.9,
+    "rationale": "Safe patch update available"
+  },
+  "validation": {
+    "success": true,
+    "build_passed": true,
+    "test_passed": true,
+    "rescan_clean": true
+  }
+}
+EOF
+
+# Render PR body
+uv run vuln-remediation render-pr sample-data.json
+
+# Render reviewer checklist
+uv run vuln-remediation render-checklist sample-data.json
+
+# Render decision log
+uv run vuln-remediation render-decision-log sample-data.json
+```
+
+### Workflow Integration
+
+The skill is designed to be used as part of a larger remediation workflow:
+
+1. **Discover**: Use `fetch` to identify vulnerabilities
+2. **Assess**: Use `osv-check` and `changelog` to evaluate fix options
+3. **Plan**: Use `dedup-check` to avoid duplicate work
+4. **Execute**: Apply fixes and validate with build/test
+5. **Document**: Use `render-*` commands to create PR content
+
+### Getting Help
+
+```bash
+# See all available commands
+uv run vuln-remediation --help
+
+# Get help for specific commands
+uv run vuln-remediation fetch --help
+uv run vuln-remediation osv-check --help
 ```
 
 ## The NEBULA:FOG 2026 Hackathon
