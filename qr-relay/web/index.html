@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Relay — Encrypted Chat</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #0a0a0a; color: #e0e0e0;
+      display: flex; flex-direction: column; align-items: center;
+      min-height: 100vh; padding: 20px;
+    }
+    h1 { font-size: 1.4em; margin-bottom: 8px; color: #fff; }
+    .subtitle { font-size: 0.85em; color: #888; margin-bottom: 24px; }
+    #status {
+      padding: 8px 16px; border-radius: 8px; margin-bottom: 16px;
+      font-size: 0.9em; background: #1a1a2e; color: #7dd3fc;
+    }
+    #status.error { background: #2e1a1a; color: #fca5a5; }
+    #status.success { background: #1a2e1a; color: #86efac; }
+
+    #scanner-section { text-align: center; }
+    #scanner-section video {
+      width: 300px; height: 300px; object-fit: cover;
+      border-radius: 12px; border: 2px solid #333;
+    }
+    #scanner-section p { margin-top: 12px; font-size: 0.85em; color: #888; }
+
+    #manual-section { margin-top: 16px; text-align: center; }
+    #manual-section textarea {
+      width: 300px; height: 80px; background: #1a1a1a; color: #e0e0e0;
+      border: 1px solid #333; border-radius: 8px; padding: 8px;
+      font-family: monospace; font-size: 0.8em; resize: vertical;
+    }
+    #manual-section button, #input-row button {
+      padding: 8px 20px; background: #2563eb;
+      color: white; border: none; border-radius: 6px; cursor: pointer;
+    }
+
+    #chat-section { display: none; width: 100%; max-width: 500px; flex: 1; flex-direction: column; }
+    #chat-section.active { display: flex; }
+    #messages {
+      flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column;
+      background: #111; border-radius: 12px; margin-bottom: 12px;
+      min-height: 300px; max-height: 60vh;
+    }
+    .msg {
+      margin-bottom: 8px; padding: 8px 12px;
+      border-radius: 8px; max-width: 80%; font-size: 0.9em; word-wrap: break-word;
+    }
+    .msg.them { background: #1e293b; align-self: flex-start; }
+    .msg.you { background: #1e3a2f; align-self: flex-end; margin-left: auto; }
+    .msg .label { font-size: 0.7em; color: #888; margin-bottom: 2px; }
+    #input-row { display: flex; gap: 8px; }
+    #input-row input {
+      flex: 1; padding: 10px 14px; background: #1a1a1a;
+      color: #e0e0e0; border: 1px solid #333; border-radius: 8px; font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Relay</h1>
+  <p class="subtitle">End-to-end encrypted chat through an untrusted relay</p>
+  <div id="status">Point your camera at the machine's QR code</div>
+
+  <div id="scanner-section">
+    <video id="video" autoplay playsinline></video>
+    <p>Or paste the QR payload manually:</p>
+    <div id="manual-section">
+      <textarea id="manual-input" placeholder='{"r":"ws://...","s":"...","k":"...","v":1}'></textarea>
+      <br><button onclick="handleManualInput()">Connect</button>
+    </div>
+  </div>
+
+  <div id="chat-section">
+    <div id="messages"></div>
+    <div id="input-row">
+      <input id="msg-input" type="text" placeholder="Type a message..." autocomplete="off">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/qr-scanner@1.4.2/qr-scanner.umd.min.js"></script>
+
+  <script type="module">
+    // PyNaCl secretbox = NaCl secretbox = XSalsa20-Poly1305
+    // PyNaCl prepends 24-byte nonce to ciphertext, then we base64 the whole thing.
+    // We use tweetnacl in the browser to match exactly.
+    const nacl = await import("https://cdn.jsdelivr.net/npm/tweetnacl-es@1.0.3/+esm");
+    const naclUtil = await import("https://cdn.jsdelivr.net/npm/tweetnacl-util-es@0.15.1/+esm");
+
+    let ws = null;
+    let chainKey = null;
+
+    // --- QR scanning ---
+    const video = document.getElementById("video");
+    try {
+      const qrScanner = new QrScanner(video, (result) => {
+        qrScanner.stop();
+        handleQrPayload(result.data);
+      }, { highlightScanRegion: true, highlightCodeOutline: true });
+      qrScanner.start();
+    } catch (e) {
+      setStatus("Camera not available — use manual input", "error");
+    }
+
+    window.handleManualInput = () => {
+      const raw = document.getElementById("manual-input").value.trim();
+      if (raw) handleQrPayload(raw);
+    };
+    window.sendMessage = sendMessage;
+    document.getElementById("msg-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    // --- Crypto (matches PyNaCl exactly) ---
+
+    function sha512(data) { return nacl.hash(data); }
+
+    function ratchetChainKey(ck) {
+      const mkIn = new Uint8Array(ck.length + 1);
+      mkIn.set(ck); mkIn[ck.length] = 0x01;
+      const messageKey = sha512(mkIn).slice(0, 32);
+
+      const ckIn = new Uint8Array(ck.length + 1);
+      ckIn.set(ck); ckIn[ck.length] = 0x02;
+      const nextChainKey = sha512(ckIn).slice(0, 32);
+
+      return [messageKey, nextChainKey];
+    }
+
+    function encryptMsg(plaintext, key) {
+      // Match PyNaCl SecretBox: nonce (24) + ciphertext (includes 16-byte tag)
+      const nonce = nacl.randomBytes(24);
+      const msgBytes = new TextEncoder().encode(plaintext);
+      const ciphertext = nacl.secretbox(msgBytes, nonce, key);
+      const packed = new Uint8Array(nonce.length + ciphertext.length);
+      packed.set(nonce);
+      packed.set(ciphertext, nonce.length);
+      return naclUtil.encodeBase64(packed);
+    }
+
+    function decryptMsg(packed, key) {
+      const data = naclUtil.decodeBase64(packed);
+      const nonce = data.slice(0, 24);
+      const ciphertext = data.slice(24);
+      const plaintext = nacl.secretbox_open(ciphertext, nonce, key);
+      if (!plaintext) return null;
+      return new TextDecoder().decode(plaintext);
+    }
+
+    // --- Connection ---
+
+    async function handleQrPayload(raw) {
+      let payload;
+      try { payload = JSON.parse(raw); } catch { return setStatus("Invalid QR payload", "error"); }
+
+      const { r: relayUrl, s: sessionId, k: machineKeyB64 } = payload;
+      if (!relayUrl || !sessionId || !machineKeyB64) return setStatus("Incomplete QR payload", "error");
+
+      setStatus("Connecting to relay...");
+
+      const keyPair = nacl.box_keyPair();
+      const machinePk = naclUtil.decodeBase64(machineKeyB64);
+
+      // X25519 ECDH — derive shared secret (same as PyNaCl Box.shared_key)
+      const sharedSecret = nacl.box_before(machinePk, keyPair.secretKey);
+      chainKey = sharedSecret;
+
+      ws = new WebSocket(`${relayUrl}/${sessionId}`);
+
+      ws.onopen = () => {
+        setStatus("Sending handshake...");
+        ws.send(JSON.stringify({
+          type: "handshake",
+          publicKey: naclUtil.encodeBase64(keyPair.publicKey),
+        }));
+      };
+
+      ws.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+
+        if (msg.type === "handshake-ack") {
+          setStatus("Encrypted channel established!", "success");
+          document.getElementById("scanner-section").style.display = "none";
+          document.getElementById("chat-section").classList.add("active");
+          document.getElementById("msg-input").focus();
+          return;
+        }
+
+        if (msg.type === "encrypted" && chainKey) {
+          const [mk, nc] = ratchetChainKey(chainKey);
+          chainKey = nc;
+          const text = decryptMsg(msg.payload, mk);
+          if (text) addMessage("machine", text);
+        }
+      };
+
+      ws.onclose = () => setStatus("Connection closed", "error");
+      ws.onerror = () => setStatus("Connection failed", "error");
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("msg-input");
+      const text = input.value.trim();
+      if (!text || !ws || !chainKey) return;
+
+      const [mk, nc] = ratchetChainKey(chainKey);
+      chainKey = nc;
+      ws.send(JSON.stringify({ type: "encrypted", payload: encryptMsg(text, mk) }));
+      addMessage("you", text);
+      input.value = "";
+      input.focus();
+    }
+
+    // --- UI ---
+
+    function addMessage(who, text) {
+      const el = document.getElementById("messages");
+      const div = document.createElement("div");
+      div.className = `msg ${who === "you" ? "you" : "them"}`;
+      div.innerHTML = `<div class="label">${who}</div>${escapeHtml(text)}`;
+      el.appendChild(div);
+      el.scrollTop = el.scrollHeight;
+    }
+
+    function setStatus(text, type = "") {
+      const el = document.getElementById("status");
+      el.textContent = text;
+      el.className = type;
+    }
+
+    function escapeHtml(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+  </script>
+</body>
+</html>
