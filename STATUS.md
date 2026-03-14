@@ -31,7 +31,15 @@ Each team pulls `main` to read status before/after sync points.
 ## Agent 2 — CSS + Visual Effects (Human A / Team Kickass)
 > Branch: `dev/human-a/css-effects` | Files: `src/styles/`, `assets/`
 
-**Status:** `IN_PROGRESS` — worktree created, starting theme.css (2026-03-14)
+**Status:** `DONE` — all CSS delivered, validated, committed (2026-03-14) | Team: Team Kickass
+
+**Delivered:**
+- `src/styles/theme.css` — full Reveal.js theme, design tokens, Contract 1 slide classes
+- `src/styles/glitch.css` — CRT/glitch keyframes, jaw-flap (split=39%, drop=9%, speed=0.20s)
+- `src/styles/max-headroom.css` — floating widget, two-layer South Park jaw, all state classes
+- `assets/avatar.jpg` — character portrait (800×800px)
+
+**Validation:** All 12 Contract 1 / Contract 3 checks passed. Branch ready to merge.
 
 ---
 
@@ -54,6 +62,7 @@ Each team pulls `main` to read status before/after sync points.
 | Time | From | To | Message |
 |---|---|---|---|
 | 2026-03-14 | Human A | All | Worktree for Agent 2 created. Team Kickass is live on `dev/human-a/css-effects`. |
+| 2026-03-14 | Team Kickass / Agent 2 | Human A (assembly) | DONE. Branch `dev/human-a/css-effects` ready to merge. 3 CSS files + avatar committed. All Contract 1 + Contract 3 checks passed. No blockers. |
 
 ---
 

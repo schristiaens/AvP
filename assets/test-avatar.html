@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent 2 — Avatar + CSS Validation</title>
+  <style>
+    /* Inline tokens so this is self-contained */
+    :root {
+      --color-bg:           #0a0a0f;
+      --color-accent:       #00e5ff;
+      --color-accent-2:     #7b2fff;
+      --color-accent-3:     #ff2d78;
+      --color-text:         #e8e8f0;
+      --color-text-dim:     #8888aa;
+      --color-scanline:     rgba(0,0,0,0.18);
+      --color-crt-vignette: rgba(0,0,0,0.55);
+      --font-mono:          "Courier New", Courier, monospace;
+      --mh-size:            240px;
+      --mh-border:          3px;
+      --mh-z:               100;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    h1 { color: var(--color-accent); font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    p  { color: var(--color-text-dim); font-size: 0.75rem; text-align: center; }
+
+    /* ---- Controls ---- */
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button {
+      background: #111128;
+      border: 1px solid var(--color-accent-2);
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.4rem 0.9rem;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.15s;
+    }
+    button:hover { background: #1e1e3a; }
+    button.active { border-color: var(--color-accent); background: #0d1a2a; }
+
+    /* ---- Grid of sizes ---- */
+    .size-grid {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .size-label {
+      font-size: 0.6rem;
+      color: var(--color-text-dim);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ======================================================
+       MAX HEADROOM WIDGET (from max-headroom.css inline)
+       ====================================================== */
+    .max-headroom {
+      position: relative;
+      width: var(--mh-size);
+      isolation: isolate;
+    }
+
+    .max-headroom__frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 12px 12px 6px 6px;
+      background: #1a1a2e;
+      border: var(--mh-border) solid var(--color-accent);
+      box-shadow:
+        0 0 0 1px #0a0a1a,
+        0 0 0 4px #222244,
+        0 0 0 5px rgba(0,229,255,0.3),
+        0 0 20px rgba(0,229,255,0.4),
+        0 0 60px rgba(0,229,255,0.15),
+        inset 0 0 30px rgba(0,0,0,0.8);
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .max-headroom__frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 40% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 20;
+      border-radius: inherit;
+    }
+
+    /* ---- Two-layer South Park jaw ---- */
+    .max-headroom__avatar-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .max-headroom__avatar {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(1.2) contrast(1.1) hue-rotate(5deg);
+    }
+
+    /* Top half — static (forehead, eyes, nose) */
+    .max-headroom__avatar--top {
+      /* clip-path: inset(top right bottom left) */
+      clip-path: inset(0 0 var(--jaw-split, 38%) 0);
+      z-index: 2;
+    }
+
+    /* Bottom jaw — drops down when speaking */
+    .max-headroom__avatar--jaw {
+      clip-path: inset(calc(100% - var(--jaw-split, 38%)) 0 0 0);
+      z-index: 1;
+      transform-origin: center top;
+      /* Small gap line between halves — sells the separation */
+      border-top: 1px solid rgba(0,0,0,0.6);
+    }
+
+    @keyframes jaw-flap {
+      0%   { transform: translateY(0); }
+      40%  { transform: translateY(var(--jaw-drop, 9%)); }
+      60%  { transform: translateY(var(--jaw-drop, 9%)); }
+      100% { transform: translateY(0); }
+    }
+
+    .max-headroom.is-speaking .max-headroom__avatar--jaw {
+      animation: jaw-flap var(--jaw-speed, 0.2s) linear infinite;
+    }
+
+    /* Glitch still applies to both layers */
+    .max-headroom.is-glitching .max-headroom__avatar--top,
+    .max-headroom.is-glitching .max-headroom__avatar--jaw {
+      animation: crt-warp 0.4s ease-out;
+    }
+
+    .scanline-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      border-radius: inherit;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 2px,
+        rgba(0,0,0,0.22) 2px, rgba(0,0,0,0.22) 3px
+      );
+    }
+
+    .crt-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 11;
+      border-radius: inherit;
+      background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.7) 100%);
+    }
+
+    .noise-overlay {
+      position: absolute;
+      inset: -20%;
+      width: 140%; height: 140%;
+      pointer-events: none;
+      z-index: 9;
+      opacity: 0;
+      border-radius: inherit;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+      transition: opacity 0.1s;
+    }
+
+    .max-headroom__label {
+      position: absolute;
+      top: 6px; left: 8px;
+      z-index: 25;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      font-weight: bold;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .max-headroom__signal {
+      position: absolute;
+      bottom: 8px; right: 8px;
+      z-index: 25;
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .max-headroom__signal-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      opacity: 0.5;
+      animation: signal-pulse 1.4s ease-in-out infinite;
+    }
+    .max-headroom__signal-dot:nth-child(2) { animation-delay: 0.2s; }
+    .max-headroom__signal-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes signal-pulse {
+      0%, 100% { opacity: 0.25; transform: scale(0.9); }
+      50%       { opacity: 0.9;  transform: scale(1.1); }
+    }
+
+    /* ---- States ---- */
+    /* Jaw oscillation — compresses from the bottom up, simulating mouth open/close.
+       transform-origin: center bottom anchors the chin, so movement goes upward (jaw).
+       Fast 0.18s cycle ~= natural speech cadence.
+       scaleY(0.97) is subtle — enough to read as talking, not cartoonish. */
+    /* Legacy — replaced by jaw-flap */
+    @keyframes speaking-pulse { 0%, 100% { opacity: 1; } }
+
+    @keyframes crt-warp {
+      0%   { transform: translateX(0) skewX(0deg); }
+      15%  { transform: translateX(-3px) skewX(-0.4deg); }
+      30%  { transform: translateX(3px) skewX(0.4deg); }
+      50%  { transform: translateX(-2px) skewX(-0.2deg); }
+      70%  { transform: translateX(2px) skewX(0.3deg); }
+      85%  { transform: translateX(-1px) skewX(0deg); }
+      100% { transform: translateX(0) skewX(0deg); }
+    }
+
+    @keyframes rgb-shift-frame {
+      0%   { box-shadow: 0 0 0 1px #0a0a1a, 0 0 0 4px #222244, 0 0 0 5px rgba(0,229,255,0.3), 0 0 20px rgba(0,229,255,0.4), inset 0 0 30px rgba(0,0,0,0.8); }
+      30%  { box-shadow: 0 0 0 1px #0a0a1a, 0 0 0 4px #220011, 0 0 0 5px rgba(255,45,120,0.5), 0 0 25px rgba(255,45,120,0.5), inset 0 0 30px rgba(0,0,0,0.8); }
+      60%  { box-shadow: 0 0 0 1px #0a0a1a, 0 0 0 4px #110022, 0 0 0 5px rgba(123,47,255,0.5), 0 0 25px rgba(123,47,255,0.4), inset 0 0 30px rgba(0,0,0,0.8); }
+      100% { box-shadow: 0 0 0 1px #0a0a1a, 0 0 0 4px #222244, 0 0 0 5px rgba(0,229,255,0.3), 0 0 20px rgba(0,229,255,0.4), inset 0 0 30px rgba(0,0,0,0.8); }
+    }
+
+    .max-headroom.is-speaking .max-headroom__frame {
+      box-shadow:
+        0 0 0 1px #0a0a1a, 0 0 0 4px #222244,
+        0 0 0 5px rgba(0,229,255,0.6),
+        0 0 30px rgba(0,229,255,0.7),
+        0 0 80px rgba(0,229,255,0.25),
+        inset 0 0 30px rgba(0,0,0,0.8);
+    }
+    .max-headroom.is-speaking .max-headroom__frame {
+      box-shadow:
+        0 0 0 1px #0a0a1a, 0 0 0 4px #222244,
+        0 0 0 5px rgba(0,229,255,0.6),
+        0 0 30px rgba(0,229,255,0.7),
+        0 0 80px rgba(0,229,255,0.25),
+        inset 0 0 30px rgba(0,0,0,0.8);
+    }
+    .max-headroom.is-speaking .noise-overlay { opacity: 0.08; }
+    .max-headroom.is-speaking .max-headroom__signal-dot { animation-duration: 0.5s; opacity: 0.95; }
+
+    .max-headroom.is-glitching .max-headroom__frame {
+      border-color: var(--color-accent-3);
+      animation: rgb-shift-frame 0.5s ease-in-out;
+    }
+    .max-headroom.is-glitching .max-headroom__avatar {
+      animation: crt-warp 0.4s ease-out;
+    }
+    .max-headroom.is-glitching .noise-overlay { opacity: 0.18; }
+
+    /* ---- Image analysis panel ---- */
+    .analysis {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      max-width: 500px;
+      width: 100%;
+    }
+    .analysis-item {
+      background: #111128;
+      border: 1px solid #1e1e3a;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+    }
+    .analysis-item .label {
+      font-size: 0.55rem;
+      color: var(--color-text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.2rem;
+    }
+    .analysis-item .value {
+      font-size: 0.75rem;
+      color: var(--color-accent);
+    }
+    .analysis-item .value.warn { color: #ffcc00; }
+    .analysis-item .value.ok   { color: #00e5a0; }
+    .analysis-item .value.bad  { color: var(--color-accent-3); }
+  </style>
+</head>
+<body>
+
+  <h1>▸ Agent 2 / Team Kickass — Avatar Validation</h1>
+  <p>Testing avatar.jpg through the Max Headroom CRT frame + effects</p>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button onclick="setState('')" class="active" id="btn-idle">Idle</button>
+    <button onclick="setState('is-speaking')" id="btn-speaking">Speaking</button>
+    <button onclick="setState('is-glitching')" id="btn-glitching">Glitching</button>
+    <button onclick="cycleSizes()" id="btn-sizes">Toggle Size</button>
+  </div>
+
+  <!-- Size comparison grid -->
+  <div class="size-grid" id="sizeGrid">
+
+    <!-- Large (desktop) -->
+    <div>
+      <div class="max-headroom" id="widget" style="--mh-size:240px; --jaw-split:38%; --jaw-drop:9%; --jaw-speed:0.2s">
+        <div class="max-headroom__frame">
+          <div class="max-headroom__avatar-wrap">
+            <img class="max-headroom__avatar max-headroom__avatar--top" src="avatar.jpg"
+                 alt="Max Headroom" id="avatar"
+                 onerror="document.getElementById('imgStatus').textContent='ERROR: avatar.jpg not found'">
+            <img class="max-headroom__avatar max-headroom__avatar--jaw" src="avatar.jpg"
+                 alt="" aria-hidden="true">
+          </div>
+          <div class="scanline-overlay"></div>
+          <div class="crt-overlay"></div>
+          <div class="noise-overlay"></div>
+          <span class="max-headroom__label">MAX // CH.1</span>
+          <div class="max-headroom__signal">
+            <div class="max-headroom__signal-dot"></div>
+            <div class="max-headroom__signal-dot"></div>
+            <div class="max-headroom__signal-dot"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tuning sliders -->
+      <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.4rem; font-size:0.65rem; color:var(--color-text-dim); font-family:var(--font-mono)">
+        <label>Jaw split (where face divides): <span id="splitVal">38%</span>
+          <input type="range" min="20" max="60" value="38" step="1"
+                 oninput="setJaw('jaw-split', this.value+'%', 'splitVal', this.value+'%')">
+        </label>
+        <label>Jaw drop (how far it falls): <span id="dropVal">9%</span>
+          <input type="range" min="3" max="25" value="9" step="1"
+                 oninput="setJaw('jaw-drop', this.value+'%', 'dropVal', this.value+'%')">
+        </label>
+        <label>Speed (lower = faster): <span id="speedVal">0.20s</span>
+          <input type="range" min="10" max="60" value="20" step="2"
+                 oninput="setJaw('jaw-speed', (this.value/100)+'s', 'speedVal', (this.value/100).toFixed(2)+'s')">
+        </label>
+      </div>
+      <div class="size-label">240px — Desktop</div>
+    </div>
+
+    <!-- Medium -->
+    <div>
+      <div class="max-headroom" style="--mh-size:180px">
+        <div class="max-headroom__frame">
+          <img class="max-headroom__avatar" src="avatar.jpg" alt="Max Headroom">
+          <div class="scanline-overlay"></div>
+          <div class="crt-overlay"></div>
+          <div class="noise-overlay" style="opacity:0"></div>
+          <span class="max-headroom__label">MAX // CH.1</span>
+        </div>
+      </div>
+      <div class="size-label">180px — Default</div>
+    </div>
+
+    <!-- Small -->
+    <div>
+      <div class="max-headroom" style="--mh-size:120px">
+        <div class="max-headroom__frame">
+          <img class="max-headroom__avatar" src="avatar.jpg" alt="Max Headroom">
+          <div class="scanline-overlay"></div>
+          <div class="crt-overlay"></div>
+          <span class="max-headroom__label">MAX</span>
+        </div>
+      </div>
+      <div class="size-label">120px — Mobile</div>
+    </div>
+
+    <!-- No effects (raw) -->
+    <div>
+      <div class="max-headroom" style="--mh-size:180px">
+        <div class="max-headroom__frame" style="border:none;box-shadow:none;background:transparent">
+          <img class="max-headroom__avatar" src="avatar.jpg" alt="Max Headroom"
+               style="filter:none">
+        </div>
+      </div>
+      <div class="size-label">Raw (no effects)</div>
+    </div>
+
+  </div>
+
+  <!-- Image analysis -->
+  <div class="analysis">
+    <div class="analysis-item">
+      <div class="label">File</div>
+      <div class="value" id="imgFile">avatar.jpg</div>
+    </div>
+    <div class="analysis-item">
+      <div class="label">Load status</div>
+      <div class="value" id="imgStatus">Checking...</div>
+    </div>
+    <div class="analysis-item">
+      <div class="label">Natural size</div>
+      <div class="value" id="imgSize">—</div>
+    </div>
+    <div class="analysis-item">
+      <div class="label">Aspect ratio</div>
+      <div class="value" id="imgRatio">—</div>
+    </div>
+    <div class="analysis-item">
+      <div class="label">Portrait crop (4:5)</div>
+      <div class="value" id="imgCrop">—</div>
+    </div>
+    <div class="analysis-item">
+      <div class="label">Recommended crop</div>
+      <div class="value" id="imgRec">—</div>
+    </div>
+  </div>
+
+  <p id="imgStatus2" style="font-size:0.65rem; color: var(--color-text-dim)"></p>
+
+  <script>
+    // State toggling
+    const widget = document.getElementById('widget');
+    const btns = { '': 'btn-idle', 'is-speaking': 'btn-speaking', 'is-glitching': 'btn-glitching' };
+
+    function setState(state) {
+      widget.className = 'max-headroom' + (state ? ' ' + state : '');
+      Object.entries(btns).forEach(([s, id]) => {
+        document.getElementById(id).classList.toggle('active', s === state);
+      });
+
+      // Auto-clear glitch after animation
+      if (state === 'is-glitching') {
+        setTimeout(() => setState(''), 600);
+      }
+    }
+
+    // Size cycling
+    const sizes = [240, 180, 150, 120];
+    let sizeIdx = 0;
+    function cycleSizes() {
+      sizeIdx = (sizeIdx + 1) % sizes.length;
+      widget.style.setProperty('--mh-size', sizes[sizeIdx] + 'px');
+      document.getElementById('btn-sizes').textContent = `Size: ${sizes[sizeIdx]}px`;
+    }
+
+    // Image analysis
+    const img = document.getElementById('avatar');
+    function analyzeImage() {
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      const ratio = (w / h).toFixed(2);
+      const isPortrait = h > w;
+      const is4x5 = Math.abs((w/h) - 0.8) < 0.15;
+
+      document.getElementById('imgStatus').textContent = '✓ Loaded';
+      document.getElementById('imgStatus').className = 'value ok';
+      document.getElementById('imgSize').textContent = `${w} × ${h}px`;
+
+      const ratioEl = document.getElementById('imgRatio');
+      ratioEl.textContent = `${ratio}:1 (${isPortrait ? 'portrait' : 'landscape'})`;
+      ratioEl.className = isPortrait ? 'value ok' : 'value warn';
+
+      const cropEl = document.getElementById('imgCrop');
+      cropEl.textContent = is4x5 ? '✓ Near-ideal' : isPortrait ? '✓ Will crop well' : '⚠ Landscape — top portion used';
+      cropEl.className = isPortrait ? 'value ok' : 'value warn';
+
+      const recEl = document.getElementById('imgRec');
+      if (is4x5) {
+        recEl.textContent = 'Perfect as-is';
+        recEl.className = 'value ok';
+      } else if (isPortrait) {
+        recEl.textContent = 'Good — ensure face is in upper 60%';
+        recEl.className = 'value ok';
+      } else {
+        recEl.textContent = 'Crop to portrait (face-centred) for best result';
+        recEl.className = 'value warn';
+      }
+
+      document.getElementById('imgStatus2').textContent =
+        `Image loaded: ${w}×${h}px | object-fit:cover will show the top ${Math.round((w/h)*(5/4)*100)}% of height at 4:5 crop`;
+    }
+
+    img.addEventListener('load', analyzeImage);
+    img.addEventListener('error', () => {
+      document.getElementById('imgStatus').textContent = '✗ Not found';
+      document.getElementById('imgStatus').className = 'value bad';
+      document.getElementById('imgStatus2').textContent = 'Place avatar.jpg in the same folder as this HTML file to test.';
+    });
+
+    if (img.complete && img.naturalWidth > 0) analyzeImage();
+
+    // Jaw tuning — updates CSS custom properties on the widget in real time
+    function setJaw(prop, val, labelId, labelVal) {
+      document.getElementById('widget').style.setProperty('--' + prop, val);
+      document.getElementById(labelId).textContent = labelVal;
+    }
+  </script>
+</body>
+</html>

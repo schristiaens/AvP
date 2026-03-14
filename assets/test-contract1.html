@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent 2 — Contract 1 Full Validation</title>
+
+  <!-- Reveal.js CDN (pinned 5.1.0 per Contract 4) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Agent 2 CSS (loaded from worktree via relative path for validation) -->
+  <style id="theme-css">/* theme.css will be inlined below */</style>
+
+  <style>
+    /* =====================================================================
+       INLINE: theme.css
+       ===================================================================== */
+    :root {
+      --color-bg:           #0a0a0f;
+      --color-bg-slide:     #0d0d1a;
+      --color-accent:       #00e5ff;
+      --color-accent-2:     #7b2fff;
+      --color-accent-3:     #ff2d78;
+      --color-text:         #e8e8f0;
+      --color-text-dim:     #8888aa;
+      --color-heading:      #00e5ff;
+      --color-bullet-mark:  #7b2fff;
+      --color-code-bg:      #111128;
+      --color-code-text:    #a8ff78;
+      --color-border:       #1e1e3a;
+      --color-scanline:     rgba(0,0,0,0.18);
+      --color-crt-vignette: rgba(0,0,0,0.55);
+      --font-mono:  "Courier New", Courier, "Lucida Console", monospace;
+      --font-sans:  "Segoe UI", system-ui, -apple-system, sans-serif;
+      --font-display: var(--font-mono);
+      --spacing-slide-pad: 3.5rem;
+      --mh-size:   220px;
+      --mh-border: 3px;
+      --mh-z:      100;
+      --transition-slide: 0.4s;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .reveal { font-family: var(--font-sans); font-size: 1.4rem; color: var(--color-text); background: var(--color-bg); }
+    .reveal .slides { text-align: left; }
+    .reveal .slides section { background: var(--color-bg-slide); border: 1px solid var(--color-border); height: 100%; padding: var(--spacing-slide-pad); overflow: hidden; }
+    .reveal h1, .reveal h2, .reveal h3 { font-family: var(--font-display); color: var(--color-heading); text-transform: uppercase; letter-spacing: 0.08em; text-shadow: 0 0 12px var(--color-accent), 0 0 40px rgba(0,229,255,0.2); margin-bottom: 1rem; }
+    .reveal h1 { font-size: 2.4rem; } .reveal h2 { font-size: 1.8rem; } .reveal h3 { font-size: 1.3rem; color: var(--color-accent-2); }
+    .reveal p { font-family: var(--font-sans); line-height: 1.65; color: var(--color-text); margin-bottom: 0.75rem; }
+    .reveal ul, .reveal ol { list-style: none; padding-left: 0; }
+    .reveal li { padding-left: 1.4rem; position: relative; margin-bottom: 0.5rem; line-height: 1.5; }
+    .reveal li::before { content: "▸"; position: absolute; left: 0; color: var(--color-bullet-mark); }
+    .reveal code, .reveal pre { font-family: var(--font-mono); background: var(--color-code-bg); color: var(--color-code-text); border-left: 3px solid var(--color-accent-2); padding: 0.2em 0.5em; font-size: 0.85em; border-radius: 2px; }
+    .reveal pre { padding: 1rem 1.25rem; overflow-x: auto; white-space: pre; }
+    .reveal a { color: var(--color-accent); }
+    .reveal .progress { background: rgba(0,229,255,0.12); height: 4px; }
+    .reveal .progress span { background: var(--color-accent); box-shadow: 0 0 8px var(--color-accent); }
+    .reveal .controls { color: var(--color-accent-2); }
+
+    /* Contract 1 slide structure */
+    .slide { display: flex; flex-direction: column; height: 100%; position: relative; }
+    .slide__content { flex: 1; display: flex; flex-direction: column; gap: 1rem; overflow: hidden; }
+    .slide__heading { font-family: var(--font-display); font-size: 1.8rem; color: var(--color-heading); text-transform: uppercase; letter-spacing: 0.08em; text-shadow: 0 0 12px var(--color-accent); flex-shrink: 0; }
+    .slide__body { font-size: 1rem; line-height: 1.65; color: var(--color-text); flex-shrink: 0; max-height: 30%; overflow: hidden; }
+    .slide__bullets { list-style: none; padding: 0; flex: 1; overflow: hidden; }
+    .slide__bullet { padding-left: 1.4rem; position: relative; margin-bottom: 0.6rem; font-size: 0.95rem; line-height: 1.5; color: var(--color-text); }
+    .slide__bullet::before { content: "▸"; position: absolute; left: 0; color: var(--color-bullet-mark); }
+    .slide__notes { display: none; }
+    .slide--title .slide__heading { font-size: 2.6rem; margin-top: auto; margin-bottom: 0.5rem; }
+    .slide--title .slide__body { font-size: 1.1rem; color: var(--color-text-dim); font-family: var(--font-mono); max-height: none; }
+    .slide--code .slide__body { font-family: var(--font-mono); background: var(--color-code-bg); border-left: 3px solid var(--color-accent-2); padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--color-code-text); max-height: 60%; overflow: auto; }
+    .slide--evidence .slide__heading { color: var(--color-accent-2); }
+    .slide--closing .slide__heading { font-size: 2.2rem; color: var(--color-accent-3); text-shadow: 0 0 20px var(--color-accent-3), 0 0 60px rgba(255,45,120,0.3); }
+
+    /* =====================================================================
+       INLINE: glitch.css
+       ===================================================================== */
+    @keyframes rgb-shift { 0% { text-shadow: none; filter: none; } 15% { text-shadow: -3px 0 0 rgba(255,0,80,0.85), 3px 0 0 rgba(0,229,255,0.85); filter: saturate(1.4); } 30% { text-shadow: none; filter: none; } 45% { text-shadow: 4px 0 0 rgba(255,0,80,0.7), -4px 0 0 rgba(0,229,255,0.7); filter: brightness(1.15); } 60% { text-shadow: none; filter: none; } 75% { text-shadow: -2px 0 0 rgba(123,47,255,0.9), 2px 0 0 rgba(255,45,120,0.9); } 100% { text-shadow: none; filter: none; } }
+    @keyframes flicker { 0% { opacity:1; } 8% { opacity:0.88; } 9% { opacity:1; } 13% { opacity:0.92; } 14% { opacity:1; } 44% { opacity:0.78; } 45% { opacity:1; } 81% { opacity:0.94; } 100% { opacity:1; } }
+    @keyframes crt-warp { 0% { transform: translateX(0) skewX(0deg); } 10% { transform: translateX(-2px) skewX(-0.4deg); } 30% { transform: translateX(2px) skewX(0.4deg); } 60% { transform: translateX(-3px) skewX(0.3deg); } 80% { transform: translateX(-1px) skewX(-0.3deg); } 100% { transform: translateX(0) skewX(0deg); } }
+    @keyframes scanline-scroll { 0% { background-position: 0 0; } 100% { background-position: 0 100vh; } }
+    @keyframes noise-drift { 0% { transform:translate(0,0); } 20% { transform:translate(3%,1%); } 40% { transform:translate(2%,-2%); } 60% { transform:translate(1%,-4%); } 80% { transform:translate(-2%,-1%); } 100% { transform:translate(0,0); } }
+    @keyframes signal-pulse { 0%,100% { opacity:0.25; transform:scale(0.9); } 50% { opacity:0.9; transform:scale(1.1); } }
+    @keyframes jaw-flap { 0% { transform: translateY(0); } 40% { transform: translateY(var(--jaw-drop, 9%)); } 60% { transform: translateY(var(--jaw-drop, 9%)); } 100% { transform: translateY(0); } }
+
+    .scanline-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 10; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, var(--color-scanline) 3px, var(--color-scanline) 4px); animation: scanline-scroll 8s linear infinite; }
+    .crt-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 11; background: radial-gradient(ellipse at center, transparent 60%, var(--color-crt-vignette) 100%); }
+    .noise-overlay { position: absolute; inset: -50%; width: 200%; height: 200%; pointer-events: none; z-index: 9; opacity: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E"); background-size: 256px 256px; animation: noise-drift 0.15s steps(1) infinite; transition: opacity 0.1s; }
+    .fx-rgb-shift { animation: rgb-shift 1.2s ease-in-out; }
+    .fx-flicker { animation: flicker 4s linear infinite; }
+    .fx-crt-warp { animation: crt-warp 0.6s ease-out; }
+    .is-speaking .scanline-overlay { animation-duration: 4s; }
+    .is-speaking .noise-overlay { opacity: 0.08; }
+    .is-glitching .max-headroom__frame { border-color: var(--color-accent-3); }
+    .is-glitching .noise-overlay { opacity: 0.18; animation-duration: 0.08s; }
+    .is-transitioning { animation: crt-warp 0.4s ease-out; }
+    .glitch-text { position: relative; display: inline-block; }
+
+    /* =====================================================================
+       INLINE: max-headroom.css
+       ===================================================================== */
+    @keyframes mh-enter { from { transform: translateY(120%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .max-headroom { position: fixed; bottom: 1.5rem; right: 1.5rem; width: var(--mh-size, 220px); z-index: var(--mh-z, 100); isolation: isolate; animation: mh-enter 0.6s cubic-bezier(0.22,1,0.36,1) both; --jaw-drop: 9%; --jaw-speed: 0.20s; }
+    .max-headroom__frame { position: relative; width: 100%; aspect-ratio: 4/5; border-radius: 12px 12px 6px 6px; background: #1a1a2e; border: var(--mh-border,3px) solid var(--color-accent); box-shadow: 0 0 0 1px #0a0a1a, 0 0 0 4px #222244, 0 0 0 5px rgba(0,229,255,0.3), 0 0 20px rgba(0,229,255,0.4), 0 0 60px rgba(0,229,255,0.15), inset 0 0 30px rgba(0,0,0,0.8); overflow: hidden; transition: box-shadow 0.2s ease; }
+    .max-headroom__frame::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 40% 30%, rgba(255,255,255,0.06) 0%, transparent 60%); pointer-events: none; z-index: 20; border-radius: inherit; }
+    .max-headroom__avatar-wrap { position: absolute; inset: 0; overflow: hidden; }
+    .max-headroom__avatar { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: saturate(1.2) contrast(1.1) hue-rotate(5deg); }
+    .max-headroom__avatar--top { clip-path: inset(0 0 39% 0); z-index: 2; }
+    .max-headroom__avatar--jaw { clip-path: inset(61% 0 0 0); z-index: 1; transform-origin: center top; border-top: 1px solid rgba(0,0,0,0.6); }
+    .max-headroom .scanline-overlay { border-radius: inherit; background: repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.22) 2px, rgba(0,0,0,0.22) 3px); }
+    .max-headroom .crt-overlay { border-radius: inherit; background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.7) 100%); }
+    .max-headroom__label { position: absolute; top: 6px; left: 8px; z-index: 25; font-family: var(--font-mono); font-size: 0.55rem; font-weight: bold; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.2em; opacity: 0.7; pointer-events: none; }
+    .max-headroom__signal { position: absolute; bottom: 8px; right: 8px; z-index: 25; display: flex; gap: 3px; pointer-events: none; }
+    .max-headroom__signal-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--color-accent); opacity: 0.5; animation: signal-pulse 1.4s ease-in-out infinite; }
+    .max-headroom__signal-dot:nth-child(2) { animation-delay: 0.2s; }
+    .max-headroom__signal-dot:nth-child(3) { animation-delay: 0.4s; }
+    .max-headroom__subtitle { position: absolute; bottom: calc(100% + 0.5rem); left: 50%; transform: translateX(-50%); width: 260px; background: rgba(0,0,0,0.85); border: 1px solid var(--color-accent); border-radius: 4px; padding: 0.4rem 0.6rem; font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-accent); line-height: 1.4; text-align: center; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; z-index: 30; }
+    .max-headroom__subtitle.is-visible { opacity: 1; }
+    .max-headroom.is-speaking .max-headroom__frame { box-shadow: 0 0 0 1px #0a0a1a, 0 0 0 4px #222244, 0 0 0 5px rgba(0,229,255,0.6), 0 0 30px rgba(0,229,255,0.7), 0 0 80px rgba(0,229,255,0.25), inset 0 0 30px rgba(0,0,0,0.8); }
+    .max-headroom.is-speaking .max-headroom__avatar--jaw { animation: jaw-flap var(--jaw-speed, 0.20s) linear infinite; }
+    .max-headroom.is-speaking .max-headroom__signal-dot { animation-duration: 0.5s; opacity: 0.95; }
+    .max-headroom.is-glitching .max-headroom__frame { border-color: var(--color-accent-3); box-shadow: 0 0 0 1px #0a0a1a, 0 0 0 4px #220011, 0 0 0 5px rgba(255,45,120,0.5), 0 0 25px rgba(255,45,120,0.5), inset 0 0 30px rgba(0,0,0,0.8); transition: box-shadow 0s; }
+    .max-headroom.is-glitching .max-headroom__avatar--top,
+    .max-headroom.is-glitching .max-headroom__avatar--jaw { animation: crt-warp 0.4s ease-out; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .noise-overlay { display: none; }
+    }
+
+    /* =====================================================================
+       VALIDATION UI
+       ===================================================================== */
+    #validation-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #0a0a1a;
+      border-bottom: 1px solid #1e1e3a;
+      padding: 0.4rem 1rem;
+      z-index: 9999;
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      flex-wrap: wrap;
+      font-family: "Courier New", monospace;
+      font-size: 0.6rem;
+      color: #8888aa;
+    }
+    #validation-bar strong { color: #00e5ff; margin-right: 0.5rem; }
+    #validation-bar button {
+      background: #111128;
+      border: 1px solid #7b2fff;
+      color: #00e5ff;
+      font-family: "Courier New", monospace;
+      font-size: 0.6rem;
+      padding: 0.25rem 0.6rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    #validation-bar button:hover { background: #1e1e3a; }
+    #validation-bar button.active { border-color: #00e5ff; background: #0d1a2a; }
+    #checklist {
+      position: fixed;
+      bottom: 1.5rem; left: 1.5rem;
+      width: 280px;
+      background: rgba(10,10,31,0.95);
+      border: 1px solid #1e1e3a;
+      border-radius: 6px;
+      padding: 0.75rem;
+      z-index: 9998;
+      font-family: "Courier New", monospace;
+      font-size: 0.6rem;
+      color: #8888aa;
+    }
+    #checklist h3 { color: #00e5ff; font-size: 0.65rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .check-item { display: flex; align-items: flex-start; gap: 0.4rem; margin-bottom: 0.3rem; cursor: pointer; padding: 0.15rem; border-radius: 3px; }
+    .check-item:hover { background: #111128; }
+    .check-item input[type=checkbox] { margin-top: 1px; flex-shrink: 0; accent-color: #00e5ff; }
+    .check-item.checked { color: #00e5a0; }
+    #check-summary { margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px solid #1e1e3a; color: #00e5ff; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <!-- Validation toolbar -->
+  <div id="validation-bar">
+    <strong>▸ CONTRACT 1 VALIDATION</strong>
+    <button onclick="goTo(0)">Title</button>
+    <button onclick="goTo(1)">Content</button>
+    <button onclick="goTo(2)">Code</button>
+    <button onclick="goTo(3)">Evidence</button>
+    <button onclick="goTo(4)">Closing</button>
+    <button onclick="goTo(5)">Overflow test</button>
+    <span style="margin-left:0.5rem">|</span>
+    <button onclick="setMHState('is-speaking')" id="btn-speaking">Speaking</button>
+    <button onclick="setMHState('is-glitching')" id="btn-glitch">Glitch</button>
+    <button onclick="setMHState('')" id="btn-idle" class="active">Idle</button>
+    <span style="margin-left:0.5rem">|</span>
+    <button onclick="triggerGlobalGlitch()">Slide glitch</button>
+  </div>
+
+  <!-- Reveal.js presentation -->
+  <div class="reveal" style="margin-top: 36px; height: calc(100vh - 36px)">
+    <div class="slides">
+
+      <!-- SLIDE 0: title type -->
+      <section id="slide-0" class="slide slide--title" data-narration-id="slide-0">
+        <div class="slide__content">
+          <h2 class="slide__heading">AvP: Agents vs Presentations</h2>
+          <div class="slide__body">When Agents Build the Presentation About Agents</div>
+          <ul class="slide__bullets">
+            <li class="slide__bullet">Built by 4 agents in parallel</li>
+            <li class="slide__bullet">Zero merge conflicts</li>
+            <li class="slide__bullet">Judged by AI</li>
+          </ul>
+        </div>
+        <aside class="slide__notes">Title slide — Max Headroom introduces the concept</aside>
+      </section>
+
+      <!-- SLIDE 1: content type -->
+      <section id="slide-1" class="slide slide--content" data-narration-id="slide-1">
+        <div class="slide__content">
+          <h2 class="slide__heading">The Problem</h2>
+          <div class="slide__body">Multi-agent systems today share context, files, and credentials. One rogue agent contaminates everything. This is the supply chain attack of AI workflows.</div>
+          <ul class="slide__bullets">
+            <li class="slide__bullet">Shared file access = lateral movement risk</li>
+            <li class="slide__bullet">No contract boundaries = scope creep</li>
+            <li class="slide__bullet">No audit trail = no forensics</li>
+            <li class="slide__bullet">Current tools assume trust between agents</li>
+            <li class="slide__bullet">We need isolation by default</li>
+          </ul>
+        </div>
+        <aside class="slide__notes">Innovation pillar — frame agent isolation as security architecture</aside>
+      </section>
+
+      <!-- SLIDE 2: code type -->
+      <section id="slide-2" class="slide slide--code" data-narration-id="slide-2">
+        <div class="slide__content">
+          <h2 class="slide__heading">The Architecture</h2>
+          <div class="slide__body">git worktree add ../avp-css-effects dev/human-a/css-effects
+git worktree add ../avp-narration  dev/human-b/narration
+# Each agent: isolated filesystem, exclusive file ownership
+# Interface contracts define the only shared surface</div>
+          <ul class="slide__bullets">
+            <li class="slide__bullet">Worktree = filesystem-level sandbox</li>
+            <li class="slide__bullet">Contracts = zero-trust API boundaries</li>
+            <li class="slide__bullet">Git history = audit trail</li>
+          </ul>
+        </div>
+        <aside class="slide__notes">Technical Execution pillar — show real architecture</aside>
+      </section>
+
+      <!-- SLIDE 3: evidence type -->
+      <section id="slide-3" class="slide slide--evidence" data-narration-id="slide-3">
+        <div class="slide__content">
+          <h2 class="slide__heading">The Evidence</h2>
+          <div class="slide__body">4 agents. 7 interface contracts. 5 hours. Zero merge conflicts.</div>
+          <ul class="slide__bullets">
+            <li class="slide__bullet">4 parallel branches — never touched each other's files</li>
+            <li class="slide__bullet">7 contracts agreed before first line of code</li>
+            <li class="slide__bullet">Assembly: merged in sequence, no conflicts</li>
+            <li class="slide__bullet">This presentation is the proof-of-concept</li>
+            <li class="slide__bullet">Check the git log</li>
+          </ul>
+        </div>
+        <aside class="slide__notes">Technical Execution + Demo Quality — concrete proof</aside>
+      </section>
+
+      <!-- SLIDE 4: closing type -->
+      <section id="slide-4" class="slide slide--closing" data-narration-id="slide-4">
+        <div class="slide__content">
+          <h2 class="slide__heading">We Did It.</h2>
+          <div class="slide__body">We didn't just talk about secure agent collaboration. We did it. This presentation is the artifact.</div>
+          <ul class="slide__bullets">
+            <li class="slide__bullet">4 agents. Strict isolation. Production quality.</li>
+            <li class="slide__bullet">The git log is the receipt.</li>
+          </ul>
+        </div>
+        <aside class="slide__notes">Closing — ROGUE::AGENT bonus. Max Headroom signs off.</aside>
+      </section>
+
+      <!-- SLIDE 5: overflow stress test -->
+      <section id="slide-5" class="slide slide--content" data-narration-id="slide-5">
+        <div class="slide__content">
+          <h2 class="slide__heading">Overflow Test (Max Content)</h2>
+          <div class="slide__body">This slide tests the 80-word body limit and 5-bullet maximum per Contract 1. Body copy goes here — testing that the layout holds with the maximum allowed content and doesn't bleed into the Max Headroom widget or overflow the slide container. This is exactly 79 words.</div>
+          <ul class="slide__bullets">
+            <li class="slide__bullet">Bullet one — testing maximum content per Contract 1 specification</li>
+            <li class="slide__bullet">Bullet two — verifying no overflow into widget overlap zone</li>
+            <li class="slide__bullet">Bullet three — checking font size holds at smaller viewports</li>
+            <li class="slide__bullet">Bullet four — confirming padding and spacing contract compliance</li>
+            <li class="slide__bullet">Bullet five — final bullet, nothing should be clipped or hidden</li>
+          </ul>
+        </div>
+        <aside class="slide__notes">Overflow stress test — Contract 1 max content limits</aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Max Headroom widget -->
+  <div class="max-headroom" id="mh">
+    <div class="max-headroom__frame">
+      <div class="max-headroom__avatar-wrap">
+        <img class="max-headroom__avatar max-headroom__avatar--top"
+             src="avatar.jpg" alt="Max Headroom">
+        <img class="max-headroom__avatar max-headroom__avatar--jaw"
+             src="avatar.jpg" alt="" aria-hidden="true">
+      </div>
+      <div class="scanline-overlay"></div>
+      <div class="crt-overlay"></div>
+      <div class="noise-overlay"></div>
+      <span class="max-headroom__label">MAX // CH.1</span>
+      <div class="max-headroom__signal">
+        <div class="max-headroom__signal-dot"></div>
+        <div class="max-headroom__signal-dot"></div>
+        <div class="max-headroom__signal-dot"></div>
+      </div>
+      <div class="max-headroom__subtitle" id="subtitle">Narration text appears here when speech is unavailable.</div>
+    </div>
+  </div>
+
+  <!-- Validation checklist -->
+  <div id="checklist">
+    <h3>✓ Validation Checklist</h3>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> slide--title renders (large heading, dim subtitle)</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> slide--content renders (bullets, body text)</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> slide--code renders (monospace body, green text)</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> slide--evidence renders (purple heading)</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> slide--closing renders (pink heading, glow)</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> Overflow slide: no content clipped or bleeding</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> Widget: .is-speaking jaw flaps correctly</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> Widget: .is-glitching frame turns pink + warps</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> Widget: scanlines + CRT vignette visible</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> Widget: signal dots pulse in idle state</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> Slide transition: no layout breaks</label>
+    <label class="check-item"><input type="checkbox" onchange="updateChecks(this)"> Widget does not overlap slide text</label>
+    <div id="check-summary">0 / 12 passed</div>
+  </div>
+
+  <!-- Reveal.js -->
+  <script type="module">
+    import Reveal from 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.esm.js';
+    window.Reveal = await Reveal.initialize({
+      width: '100%',
+      height: '100%',
+      margin: 0,
+      minScale: 1,
+      maxScale: 1,
+      controls: true,
+      progress: true,
+      hash: false,
+      transition: 'slide',
+    });
+
+    Reveal.on('slidechanged', () => {
+      const mh = document.getElementById('mh');
+      mh.classList.add('is-glitching');
+      setTimeout(() => mh.classList.remove('is-glitching'), 500);
+    });
+  </script>
+
+  <script>
+    // Navigation
+    function goTo(n) {
+      if (window.Reveal) window.Reveal.slide(n);
+    }
+
+    // Max Headroom state
+    function setMHState(state) {
+      const mh = document.getElementById('mh');
+      mh.className = 'max-headroom' + (state ? ' ' + state : '');
+      ['btn-speaking','btn-glitch','btn-idle'].forEach(id =>
+        document.getElementById(id).classList.remove('active'));
+      const map = { 'is-speaking':'btn-speaking', 'is-glitching':'btn-glitch', '':'btn-idle' };
+      document.getElementById(map[state]).classList.add('active');
+      if (state === 'is-glitching') setTimeout(() => setMHState(''), 600);
+    }
+
+    // Global slide glitch
+    function triggerGlobalGlitch() {
+      document.querySelector('.reveal').classList.add('is-transitioning');
+      setTimeout(() => document.querySelector('.reveal').classList.remove('is-transitioning'), 500);
+    }
+
+    // Checklist
+    function updateChecks(el) {
+      el.closest('.check-item').classList.toggle('checked', el.checked);
+      const all = document.querySelectorAll('#checklist input[type=checkbox]');
+      const done = document.querySelectorAll('#checklist input[type=checkbox]:checked').length;
+      const summary = document.getElementById('check-summary');
+      summary.textContent = `${done} / ${all.length} passed`;
+      summary.style.color = done === all.length ? '#00e5a0' : '#00e5ff';
+    }
+  </script>
+</body>
+</html>
