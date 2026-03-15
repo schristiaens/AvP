@@ -239,7 +239,7 @@
     }
 
     .max-headroom {
-      position:fixed;bottom:1.5rem;right:1.5rem;width:25vw;
+      position:fixed;bottom:1.5rem;right:1.5rem;width:38vw;
       z-index:var(--mh-z,100);isolation:isolate;
       animation:mh-enter 0.6s cubic-bezier(0.22,1,0.36,1) both;
     }
@@ -295,14 +295,6 @@
     .max-headroom__signal-dot:nth-child(2){animation-delay:0.2s}
     .max-headroom__signal-dot:nth-child(3){animation-delay:0.4s}
 
-    .max-headroom__subtitle {
-      position:absolute;bottom:calc(100% + 0.5rem);left:50%;transform:translateX(-50%);
-      width:260px;background:rgba(0,0,0,0.85);border:1px solid var(--color-accent);
-      border-radius:4px;padding:0.4rem 0.6rem;font-family:var(--font-mono);font-size:0.65rem;
-      color:var(--color-accent);line-height:1.4;text-align:center;opacity:0;pointer-events:none;
-      transition:opacity 0.2s ease;z-index:30;
-    }
-    .max-headroom__subtitle.is-visible { opacity:1; }
 
     .max-headroom.is-speaking .max-headroom__frame {
       box-shadow:0 0 0 1px #0a0a1a,0 0 0 4px #222244,0 0 0 5px rgba(0,229,255,0.6),
@@ -388,7 +380,6 @@
         <span class="max-headroom__signal-dot"></span>
       </div>
     </div>
-    <div class="max-headroom__subtitle" id="subtitle"></div>
   </div>
 
   <!-- Presentation -->
@@ -434,7 +425,7 @@
         <div class="slide__content">
           <h2 class="slide__heading">The Architecture</h2>
           <div class="slide__body">
-            <p>AvP is a PAI skill &mdash; an AI agent capability invoked from any Claude Code session. It replaces a 14-component service architecture with 5 irreducible workflows, eliminating PostgreSQL, Temporal, and 9 infrastructure dependencies.</p>
+            <p>AvP is a PAI skill &mdash; an AI agent capability invoked from any Claude Code session. Five irreducible workflows replace an entire service stack: no PostgreSQL, no Temporal, no queue workers. The agent IS the orchestrator.</p>
             <div class="workflow-diagram">
               <span class="workflow-step">Fetch</span>
               <span class="workflow-arrow">&rarr;</span>
@@ -590,7 +581,7 @@ $ uv run vuln-remediation render-pr remediation-data.json</code></pre>
         pauseAfterMs: 500
       },
       "slide-2": {
-        text: "AvP is a PAI skill - an AI agent capability invoked directly from Claude Code sessions. Built with first principles: five essential components handle fetching findings, triaging, strategy selection, validation, and PR shipping. Clean Python 3.12 CLI using uv, Pydantic for types, httpx for async HTTP, and Click for CLI composition. Supports Snyk API and Wiz exports. The agent orchestrates everything; Git and GitHub provide coordination.",
+        text: "AvP is a PAI skill - an AI agent capability invoked directly from Claude Code sessions. Five irreducible workflows: fetch, triage, strategy, validate, ship. No database. No queue workers. No orchestration engine. Just Python 3.12, uv, Pydantic, httpx, and Click. Snyk API and Wiz exports supported. The agent IS the orchestrator. Git and GitHub are the coordination layer.",
         pauseBeforeMs: 300,
         pauseAfterMs: 500
       },
@@ -620,28 +611,65 @@ $ uv run vuln-remediation render-pr remediation-data.json</code></pre>
     // NARRATION ENGINE (ElevenLabs <audio> elements)
     // =========================================================================
     const maxHeadroom = document.getElementById('max-headroom');
-    const subtitle = document.getElementById('subtitle');
+    const jawLayer = maxHeadroom.querySelector('.max-headroom__avatar--jaw');
     let currentAudio = null;
-    let isPaused = false;
+    let audioCtx = null;
+    let analyser = null;
+    let rafId = null;
+
+    // Web Audio API jaw sync — drives jaw-drop from real-time amplitude
+    function startJawSync(audioEl) {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      // Connect audio element → analyser → destination
+      const source = audioCtx.createMediaElementSource(audioEl);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.6;
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+
+      const data = new Uint8Array(analyser.frequencyBinCount);
+
+      function tick() {
+        analyser.getByteFrequencyData(data);
+        // Average low-mid frequencies (speech range ~100–3000Hz)
+        const bins = Math.floor(data.length * 0.25);
+        let sum = 0;
+        for (let i = 0; i < bins; i++) sum += data[i];
+        const amplitude = sum / bins / 255; // 0–1
+
+        // Map amplitude to jaw-drop (0% silent → 18% loud) and jaw-speed (fast when loud)
+        const drop = (amplitude * 18).toFixed(1) + '%';
+        const speed = (0.28 - amplitude * 0.14).toFixed(3) + 's'; // 0.14s loud → 0.28s quiet
+        maxHeadroom.style.setProperty('--jaw-drop', drop);
+        maxHeadroom.style.setProperty('--jaw-speed', speed);
+
+        rafId = requestAnimationFrame(tick);
+      }
+      tick();
+    }
+
+    function stopJawSync() {
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      maxHeadroom.style.setProperty('--jaw-drop', '9%');
+      maxHeadroom.style.setProperty('--jaw-speed', '0.23s');
+    }
 
     function speakSlide(slideId) {
       const entry = NARRATION_MAP[slideId];
       if (!entry) return;
 
-      // Stop any currently playing audio
       if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
         currentAudio = null;
       }
+      stopJawSync();
       maxHeadroom.classList.remove('is-speaking');
 
       setTimeout(() => {
-        // Show subtitle
-        subtitle.textContent = entry.text;
-        subtitle.classList.add('is-visible');
-
-        // Try to find the embedded <audio> element for this slide
         const audio = document.getElementById('audio-' + slideId);
 
         if (audio) {
@@ -649,52 +677,40 @@ $ uv run vuln-remediation render-pr remediation-data.json</code></pre>
           audio.currentTime = 0;
 
           audio.onplay = () => {
-            // Add variability to mouth movement speed
-            const baseSpeed = 0.23; // 15% slower than original 0.20s
-            const variability = 0.03; // ±15% variation
-            const randomSpeed = baseSpeed + (Math.random() - 0.5) * variability;
-            maxHeadroom.style.setProperty('--jaw-speed', randomSpeed + 's');
             maxHeadroom.classList.add('is-speaking');
+            startJawSync(audio);
           };
 
           audio.onended = () => {
+            stopJawSync();
             maxHeadroom.classList.remove('is-speaking');
-            subtitle.classList.remove('is-visible');
             currentAudio = null;
             advanceSlide(entry.pauseAfterMs);
           };
 
           audio.onerror = (e) => {
             console.warn('Audio playback error:', e);
+            stopJawSync();
             maxHeadroom.classList.remove('is-speaking');
-            subtitle.classList.remove('is-visible');
             currentAudio = null;
-            // Fallback: advance after estimated duration
             const wordCount = entry.text.split(' ').length;
-            const durationMs = (wordCount / 2.5) * 1000;
-            setTimeout(() => advanceSlide(entry.pauseAfterMs), durationMs);
+            setTimeout(() => advanceSlide(entry.pauseAfterMs), (wordCount / 2.5) * 1000);
           };
 
           audio.play().catch(e => {
             console.warn('Audio play blocked (autoplay policy):', e);
-            // Browser blocked autoplay — show a click-to-start overlay
             maxHeadroom.classList.remove('is-speaking');
           });
         } else {
-          // Fallback: timer-based advance if no audio element found
-          // Add variability to mouth movement speed
-          const baseSpeed = 0.23; // 15% slower than original 0.20s
-          const variability = 0.03; // ±15% variation
-          const randomSpeed = baseSpeed + (Math.random() - 0.5) * variability;
-          maxHeadroom.style.setProperty('--jaw-speed', randomSpeed + 's');
+          // Fallback: timer-based advance, fixed jaw speed
+          maxHeadroom.style.setProperty('--jaw-speed', '0.23s');
           maxHeadroom.classList.add('is-speaking');
           const wordCount = entry.text.split(' ').length;
-          const durationMs = (wordCount / 2.5) * 1000;
           setTimeout(() => {
+            stopJawSync();
             maxHeadroom.classList.remove('is-speaking');
-            subtitle.classList.remove('is-visible');
             advanceSlide(entry.pauseAfterMs);
-          }, durationMs);
+          }, (wordCount / 2.5) * 1000);
         }
       }, entry.pauseBeforeMs);
     }
