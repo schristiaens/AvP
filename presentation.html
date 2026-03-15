@@ -573,37 +573,37 @@ $ uv run vuln-remediation render-pr remediation-data.json</code></pre>
       "slide-0": {
         text: "Welcome to AvP: Automated Vulnerability Patching. This AI-driven skill finds vulnerabilities, selects safe fixes, validates them, and ships PRs with evidence. Built by jkalinaftw, tracertea, and redsteve for NEBULA:FOG 2026.",
         pauseBeforeMs: 800,
-        pauseAfterMs: 500
+        pauseAfterMs: 8000
       },
       "slide-1": {
         text: "Dependency vulnerabilities dominate modern attacks. Teams get hundreds of scanner findings but spend 80% triaging noise. Manual fixes risk introducing new issues. No audit trails connect findings to fixes. Multiple teams duplicate work. Critical vulnerabilities take 60 days to fix. AvP cuts that to one agent session.",
         pauseBeforeMs: 300,
-        pauseAfterMs: 500
+        pauseAfterMs: 8000
       },
       "slide-2": {
         text: "AvP is an AI skill - an AI agent capability invoked directly from Claude Code sessions. Five irreducible workflows: fetch, triage, strategy, validate, ship. No database. No queue workers. No orchestration engine. Just Python 3.12, uv, Pydantic, httpx, and Click. Snyk API and Wiz exports supported. The agent IS the orchestrator. Git and GitHub are the coordination layer.",
         pauseBeforeMs: 300,
-        pauseAfterMs: 500
+        pauseAfterMs: 8000
       },
       "slide-3": {
         text: "Seven composable CLI commands: fetch findings, check versions against safety databases, analyze breaking changes, dedup existing PRs, generate evidence-backed PRs. Deterministic strategy engine: update → patch → replace → mitigate. Code, not prompts, makes decisions. LLM explains only. Confidence gates: 0.80 for patches/minors, 0.90 for majors.",
         pauseBeforeMs: 300,
-        pauseAfterMs: 500
+        pauseAfterMs: 8000
       },
       "slide-4": {
         text: "Evidence: 7 CLI commands, 6 composable workflows, 45 tests passing. Three execution modes including Docker rootless for untrusted repos. Four strategies, two safety databases checked per version. Weighted confidence scoring from builds, tests, re-scans, lockfiles, semver. Complete PR evidence: findings, strategy rationale, breaking changes, tests, consumer impact, checklists, rollbacks. No silent skips - every finding documented.",
         pauseBeforeMs: 300,
-        pauseAfterMs: 500
+        pauseAfterMs: 8000
       },
       "slide-5": {
         text: "AvP innovates at AI-security intersection. Deterministic strategy engine - LLM explains only. Critical security boundary. Every version verified against OSV and GitHub Advisories. No blind updates. Three execution modes: direct to Docker rootless. Multi-team coordination via branch conventions and dedup checks. Forensic audit trail committed to repo. Trustworthy AI: deterministic decisions, safety verification, human oversight, complete evidence.",
         pauseBeforeMs: 300,
-        pauseAfterMs: 500
+        pauseAfterMs: 8000
       },
       "slide-6": {
         text: "AvP transforms vulnerability remediation from firefighting to systematic, evidence-backed security engineering. One command, one session: find issues, prove safe fixes, ship PRs with receipts. Built by jkalinaftw, tracertea, redsteve. Thanks to mandatoryprogrammer and sharks RobK, Sacha, Caleb. Ship it.",
         pauseBeforeMs: 300,
-        pauseAfterMs: 1000
+        pauseAfterMs: 8000
       }
     };
 
