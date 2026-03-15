@@ -347,6 +347,34 @@
       font-style:italic;margin-top:0.5rem;
     }
 
+    /* Click-to-start overlay */
+    #start-overlay {
+      position:fixed;inset:0;z-index:999;
+      background:rgba(10,10,15,0.92);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
+      backdrop-filter:blur(4px);
+    }
+    #start-overlay h2 {
+      font-family:var(--font-mono);color:var(--color-accent);font-size:1.1rem;
+      text-transform:uppercase;letter-spacing:0.2em;
+      text-shadow:0 0 20px var(--color-accent);margin:0;
+    }
+    #start-overlay p {
+      font-family:var(--font-mono);color:var(--color-text-dim);font-size:0.7rem;
+      letter-spacing:0.1em;margin:0;
+    }
+    #btn-start {
+      background:transparent;border:2px solid var(--color-accent);color:var(--color-accent);
+      font-family:var(--font-mono);font-size:1.1rem;letter-spacing:0.15em;text-transform:uppercase;
+      padding:1rem 3rem;cursor:pointer;border-radius:4px;
+      box-shadow:0 0 20px rgba(0,229,255,0.3),inset 0 0 20px rgba(0,229,255,0.05);
+      transition:all 0.2s ease;
+    }
+    #btn-start:hover {
+      background:rgba(0,229,255,0.08);
+      box-shadow:0 0 40px rgba(0,229,255,0.5),inset 0 0 30px rgba(0,229,255,0.1);
+    }
+
     @media (max-width:768px) {
       .max-headroom { --mh-size:150px;bottom:0.75rem;right:0.75rem; }
       .max-headroom__subtitle { width:200px;font-size:0.6rem; }
@@ -358,6 +386,13 @@
   </style>
 </head>
 <body>
+
+  <!-- Click-to-start overlay -->
+  <div id="start-overlay">
+    <h2>▸ AvP: Automated Vulnerability Patching</h2>
+    <button id="btn-start">&#9654; Start Presentation</button>
+    <p>NEBULA:FOG 2026 &nbsp;|&nbsp; ROGUE::AGENT Track</p>
+  </div>
 
   <!-- Max Headroom Character Widget -->
   <div id="max-headroom" class="max-headroom">
@@ -783,16 +818,22 @@ $ uv run vuln-remediation render-pr remediation-data.json</code></pre>
         if (slideId) speakSlide(slideId);
       });
 
-      // Start narration on first slide after a brief delay
-      Reveal.on('ready', () => {
-        setTimeout(() => {
-          const firstSlide = document.querySelector('.slides section');
-          if (firstSlide) {
-            const slideId = firstSlide.getAttribute('data-narration-id');
-            if (slideId) speakSlide(slideId);
-          }
-        }, 1500);
-      });
+      // Click-to-start: dismiss overlay and begin narration
+      const startOverlay = document.getElementById('start-overlay');
+      const btnStart = document.getElementById('btn-start');
+
+      function startPresentation() {
+        startOverlay.style.display = 'none';
+        const firstSlide = document.querySelector('.slides section');
+        if (firstSlide) {
+          const slideId = firstSlide.getAttribute('data-narration-id');
+          if (slideId) speakSlide(slideId);
+        }
+      }
+
+      btnStart.addEventListener('click', startPresentation);
+      // Also allow clicking anywhere on the overlay to start
+      startOverlay.addEventListener('click', startPresentation);
     });
   </script>
 
